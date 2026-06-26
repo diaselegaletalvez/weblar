@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Briefing do seu site — Weblar</title>
+  <meta name="description" content="Formulário de briefing para clientes da Weblar. Preencha as informações do seu negócio para iniciarmos a criação do seu site.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* ===== Página de briefing ===== */
+    #briefing {
+      padding-top: var(--secao-y);
+      padding-bottom: var(--secao-y);
+      background-color: var(--cor-fundo);
+    }
+
+    .briefing-cabecalho {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 3rem;
+    }
+
+    #briefing h1 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 0.85rem;
+    }
+
+    .briefing-intro {
+      color: var(--cor-suave);
+      font-size: 1.05rem;
+    }
+
+    .form-briefing {
+      max-width: 650px;
+      margin: 0 auto;
+      background-color: var(--cor-card);
+      border: 1px solid var(--cor-borda);
+      border-radius: var(--raio);
+      padding: 2.5rem;
+      box-shadow: var(--sombra-card);
+    }
+
+    .form-secao {
+      margin-bottom: 2.25rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--cor-borda);
+    }
+
+    .form-secao:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-secao-titulo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--cor-marca);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Rodapé discreto da página de briefing */
+    .briefing-rodape {
+      text-align: center;
+      padding: 2rem 1rem 2.5rem;
+      color: var(--cor-suave);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--cor-borda);
+      background-color: var(--cor-rodape);
+    }
+
+    .briefing-rodape a {
+      color: var(--cor-suave);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .briefing-rodape a:hover {
+      color: var(--cor-marca);
+    }
+
+    @media (max-width: 700px) {
+      .form-briefing {
+        padding: 1.75rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="topo">
+    <div class="container topo-conteudo">
+      <a href="/" class="logo">Weblar</a>
+    </div>
+  </header>
+
+  <section id="briefing">
+    <div class="container">
+      <div class="briefing-cabecalho">
+        <h1>Briefing do seu site</h1>
+        <p class="briefing-intro">Que bom ter você como cliente! Preencha as informações abaixo para eu criar o seu site do jeito certo. Quanto mais detalhes, melhor.</p>
+      </div>
+
+      <form class="form-briefing" action="https://formspree.io/f/meebggvw" method="POST">
+        <input type="hidden" name="_subject" value="Briefing - Weblar">
+
+        <!-- ===== Seção 1: Sobre você e o negócio ===== -->
+        <div class="form-secao">
+          <h2 class="form-secao-titulo">Sobre você e o negócio</h2>
+
+          <div class="campo-grupo">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" class="campo" required>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" class="campo" required>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="negocio">Nome do negócio</label>
+            <input type="text" id="negocio" name="negocio" class="campo" required>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="ramo">Ramo/tipo de negócio</label>
+            <input type="text" id="ramo" name="ramo" class="campo" placeholder="Ex: padaria, clínica, loja" required>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="plano">Plano contratado</label>
+            <select id="plano" name="plano" class="campo">
+              <option value="Básico">Básico</option>
+              <option value="Profissional">Profissional</option>
+              <option value="Completo">Completo</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- ===== Seção 2: Identidade visual ===== -->
+        <div class="form-secao">
+          <h2 class="form-secao-titulo">Identidade visual</h2>
+
+          <div class="campo-grupo">
+            <label for="tem_logo">Você já tem logo?</label>
+            <select id="tem_logo" name="tem_logo" class="campo">
+              <option value="Sim, tenho logo pronto">Sim, tenho logo pronto</option>
+              <option value="Não tenho">Não tenho</option>
+              <option value="Tenho mas quero melhorar">Tenho mas quero melhorar</option>
+            </select>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="link_imagens">Se tiver logo ou imagens, cole o link aqui</label>
+            <input type="text" id="link_imagens" name="link_imagens" class="campo" placeholder="Link do Google Drive, Instagram, etc.">
+          </div>
+
+          <div class="campo-grupo">
+            <label for="cores">Cores de preferência</label>
+            <input type="text" id="cores" name="cores" class="campo" placeholder="Ex: azul e branco, ou deixe comigo">
+          </div>
+
+          <div class="campo-grupo">
+            <label for="referencias">Sites ou referências que você gosta</label>
+            <textarea id="referencias" name="referencias" class="campo" placeholder="Cole links de sites que te agradam, se tiver"></textarea>
+          </div>
+        </div>
+
+        <!-- ===== Seção 3: Conteúdo do site ===== -->
+        <div class="form-secao">
+          <h2 class="form-secao-titulo">Conteúdo do site</h2>
+
+          <div class="campo-grupo">
+            <label for="descricao">O que o seu negócio faz? Descreva em poucas linhas</label>
+            <textarea id="descricao" name="descricao" class="campo" required></textarea>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="servicos">Principais produtos ou serviços</label>
+            <textarea id="servicos" name="servicos" class="campo" placeholder="Liste os principais"></textarea>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="endereco">Endereço completo</label>
+            <input type="text" id="endereco" name="endereco" class="campo">
+          </div>
+
+          <div class="campo-grupo">
+            <label for="telefone">Telefone para contato</label>
+            <input type="text" id="telefone" name="telefone" class="campo">
+          </div>
+
+          <div class="campo-grupo">
+            <label for="email_negocio">Email de contato do negócio</label>
+            <input type="text" id="email_negocio" name="email_negocio" class="campo">
+          </div>
+
+          <div class="campo-grupo">
+            <label for="horario">Horário de funcionamento</label>
+            <input type="text" id="horario" name="horario" class="campo">
+          </div>
+
+          <div class="campo-grupo">
+            <label for="redes">Redes sociais</label>
+            <input type="text" id="redes" name="redes" class="campo" placeholder="Instagram, Facebook, etc.">
+          </div>
+
+          <div class="campo-grupo">
+            <label for="dominio">Você quer domínio próprio .com.br?</label>
+            <select id="dominio" name="dominio" class="campo">
+              <option value="Sim, quero (R$50/ano)">Sim, quero (R$50/ano)</option>
+              <option value="Não, pode ser o link grátis">Não, pode ser o link grátis</option>
+              <option value="Quero saber mais">Quero saber mais</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- ===== Seção 4: Detalhes finais ===== -->
+        <div class="form-secao">
+          <h2 class="form-secao-titulo">Detalhes finais</h2>
+
+          <div class="campo-grupo">
+            <label for="observacoes">Alguma observação ou pedido especial?</label>
+            <textarea id="observacoes" name="observacoes" class="campo"></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-principal form-enviar">Enviar briefing</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="briefing-rodape">
+    Weblar — <a href="/">weblar.app.br</a>
+  </footer>
+
+</body>
+</html>
