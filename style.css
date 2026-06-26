@@ -363,11 +363,16 @@ img {
 }
 
 .card-portfolio {
+  display: flex;
+  flex-direction: column;
   background-color: var(--cor-card);
   border: 1px solid var(--cor-borda);
   border-radius: var(--raio);
   overflow: hidden;
   box-shadow: var(--sombra-card);
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
@@ -375,6 +380,15 @@ img {
   transform: translateY(-4px);
   box-shadow: var(--sombra-card-hover);
   border-color: var(--cor-suave);
+}
+
+.card-portfolio:focus-visible {
+  outline: 3px solid rgba(99, 102, 241, 0.5);
+  outline-offset: 3px;
+}
+
+.card-portfolio-img-wrap {
+  overflow: hidden;
 }
 
 .card-portfolio-img {
@@ -386,10 +400,18 @@ img {
   color: #FFFFFF;
   font-weight: 600;
   font-size: 1.25rem;
+  transition: transform 0.35s ease;
+}
+
+.card-portfolio:hover .card-portfolio-img {
+  transform: scale(1.05);
 }
 
 .card-portfolio-texto {
+  display: flex;
+  flex-direction: column;
   padding: 1.5rem;
+  flex-grow: 1;
 }
 
 .card-portfolio-nome {
@@ -400,6 +422,16 @@ img {
 
 .card-portfolio-desc {
   color: var(--cor-suave);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Botão "Ver demonstração" — visualmente um btn-principal, mas o link
+   real é o próprio card. Fica fixo no rodapé do card e mais compacto. */
+.card-portfolio-botao {
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 0.65rem 1.25rem;
   font-size: 0.95rem;
 }
 
