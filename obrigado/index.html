@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18281250397"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18281250397');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedido recebido — Weblar</title>
+  <meta name="description" content="Pedido recebido com sucesso. A Weblar responde em até 24 horas.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* ===== Página de obrigado ===== */
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #obrigado {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+      background-color: var(--cor-fundo);
+    }
+
+    .obrigado-card {
+      width: 100%;
+      max-width: 560px;
+      text-align: center;
+      background-color: var(--cor-card);
+      border: 1px solid var(--cor-borda);
+      border-radius: var(--raio);
+      padding: 3rem 2.25rem;
+      box-shadow: var(--sombra-card);
+    }
+
+    .obrigado-logo {
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    .obrigado-icone {
+      font-size: clamp(3.5rem, 10vw, 4.5rem);
+      line-height: 1;
+      margin-bottom: 1.25rem;
+    }
+
+    #obrigado h1 {
+      font-size: clamp(1.7rem, 4.5vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .obrigado-texto {
+      color: var(--cor-suave);
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+    }
+
+    .obrigado-voltar {
+      display: inline-block;
+      margin-top: 1.5rem;
+      color: var(--cor-suave);
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .obrigado-voltar:hover {
+      color: var(--cor-marca);
+    }
+
+    @media (max-width: 600px) {
+      .obrigado-card {
+        padding: 2.25rem 1.5rem;
+      }
+
+      .obrigado-card .btn-principal {
+        display: block;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section id="obrigado">
+    <div class="obrigado-card">
+      <a href="/" class="logo obrigado-logo">Weblar</a>
+
+      <div class="obrigado-icone" aria-hidden="true">✅</div>
+
+      <h1>Pedido recebido! 🎉</h1>
+
+      <p class="obrigado-texto">Obrigado pelo seu interesse na Weblar. Recebi seu pedido e respondo em até 24 horas. Enquanto isso, você já pode preencher o briefing do seu site para adiantar.</p>
+
+      <a href="/briefing/" class="btn-principal">Preencher briefing</a>
+
+      <div>
+        <a href="/" class="obrigado-voltar">← Voltar ao início</a>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
