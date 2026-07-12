@@ -391,10 +391,10 @@ img {
 }
 
 .card-portfolio-img {
+  display: block;
+  width: 100%;
   height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  object-fit: cover;
   background: linear-gradient(135deg, var(--cor-marca) 0%, var(--cor-marca-escura) 100%);
   color: #FFFFFF;
   font-weight: 600;
