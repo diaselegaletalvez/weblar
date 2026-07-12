@@ -179,15 +179,11 @@ body {
 }
 
 .sobre-imagem {
+    display: block;
+    width: 100%;
     height: 350px;
+    object-fit: cover;
     border-radius: 16px;
-    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-primaria-escura) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: 600;
-    font-size: 1.1rem;
     box-shadow: 0 10px 30px rgba(37, 99, 235, 0.15);
 }
 
@@ -337,41 +333,43 @@ body {
 }
 
 .galeria-item {
-    aspect-ratio: 4 / 3;
+    height: 260px;
     border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: 600;
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
     box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+    transition: box-shadow 0.3s ease;
+}
+
+.galeria-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
 }
 
 .galeria-item:hover {
-    transform: scale(1.03);
-    filter: brightness(0.9);
     box-shadow: 0 10px 24px rgba(15, 23, 42, 0.16);
 }
 
-.galeria-item-1 { background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-primaria-escura) 100%); }
-.galeria-item-2 { background: linear-gradient(135deg, var(--cor-primaria-escura) 0%, var(--cor-primaria) 100%); }
-.galeria-item-3 { background: linear-gradient(160deg, var(--cor-primaria) 0%, var(--cor-primaria-escura) 90%); }
-.galeria-item-4 { background: linear-gradient(200deg, var(--cor-primaria-escura) 0%, var(--cor-primaria) 100%); }
-.galeria-item-5 { background: linear-gradient(120deg, var(--cor-primaria) 0%, var(--cor-primaria-escura) 100%); }
-.galeria-item-6 { background: linear-gradient(220deg, var(--cor-primaria-escura) 10%, var(--cor-primaria) 100%); }
+.galeria-item:hover img {
+    transform: scale(1.06);
+}
 
 @media (max-width: 480px) {
     .galeria-grade {
         grid-template-columns: 1fr;
     }
+
+    .galeria-item {
+        height: 240px;
+    }
 }
 
 @media (min-width: 801px) {
     .galeria-grade {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 1.25rem;
     }
 }
