@@ -387,14 +387,19 @@ img {
 }
 
 .card-portfolio-img-wrap {
+  width: 100%;
+  height: 200px;
   overflow: hidden;
+  border-top-left-radius: var(--raio);
+  border-top-right-radius: var(--raio);
 }
 
 .card-portfolio-img {
   display: block;
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
+  object-position: center;
   background: linear-gradient(135deg, var(--cor-marca) 0%, var(--cor-marca-escura) 100%);
   color: #FFFFFF;
   font-weight: 600;
