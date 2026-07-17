@@ -243,11 +243,27 @@ img {
   color: var(--cor-suave);
 }
 
-/* ===== Pacotes (#pacotes) ===== */
+/* ===== Pacotes (#pacotes) — cards sofisticados, destaque dourado ===== */
+#pacotes {
+  padding-top: clamp(56px, 8vw, 100px);
+  padding-bottom: clamp(56px, 8vw, 100px);
+}
+
+/* Detalhe dourado abaixo do subtítulo da seção */
+.pacotes-cabecalho::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 3px;
+  background-color: var(--cor-dourado);
+  border-radius: 999px;
+  margin: 1rem auto 0;
+}
+
 .pacotes-grade {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.75rem;
+  gap: 1.5rem;
   align-items: stretch;
 }
 
@@ -257,13 +273,13 @@ img {
   flex-direction: column;
   background-color: var(--cor-card);
   border: 1px solid var(--cor-borda);
-  border-radius: var(--raio);
+  border-radius: 18px;
   padding: 2rem;
   box-shadow: var(--sombra-card);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-/* Cards comuns ganham leve elevação e borda mais clara no hover */
+/* Cards comuns ganham leve elevação no hover */
 .card-pacote:not(.card-destaque):hover {
   transform: translateY(-4px);
   box-shadow: var(--sombra-card-hover);
@@ -271,27 +287,33 @@ img {
 }
 
 .card-nome {
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  color: var(--cor-texto);
 }
 
+/* Preço + tipo, com divisória sutil abaixo */
 .card-preco {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--cor-borda);
 }
 
 .preco-valor {
-  font-size: 2.25rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--cor-texto);
   line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 
 .preco-tipo {
   font-size: 0.875rem;
   color: var(--cor-suave);
+  margin-top: 0.35rem;
 }
 
 .card-itens {
@@ -304,6 +326,7 @@ img {
   position: relative;
   padding-left: 1.75rem;
   margin-bottom: 0.85rem;
+  color: var(--cor-texto);
 }
 
 .card-itens li::before {
@@ -311,27 +334,43 @@ img {
   position: absolute;
   left: 0;
   top: 0;
-  color: var(--cor-marca);
+  color: var(--cor-dourado);
   font-weight: 700;
 }
 
-/* Botão ocupa a largura do card e fica fixo no rodapé */
+/* Botão dourado ocupa a largura do card e fica fixo no rodapé */
 .card-botao {
   display: block;
   width: 100%;
   margin-top: auto;
+  background-color: var(--cor-dourado);
+  color: var(--cor-ancora);
+  box-shadow: 0 6px 18px rgba(212, 160, 23, 0.28);
 }
 
-/* Card em destaque (Profissional) — glow dourado premium */
+.card-botao:hover {
+  background-color: #B78915;
+  box-shadow: 0 10px 28px rgba(212, 160, 23, 0.38);
+}
+
+.card-botao:active {
+  box-shadow: 0 4px 12px rgba(212, 160, 23, 0.28);
+}
+
+.card-botao:focus-visible {
+  outline: 3px solid rgba(212, 160, 23, 0.45);
+}
+
+/* Card em destaque (Profissional) — borda + glow dourados, um pouco maior */
 .card-destaque {
   border: 2px solid var(--cor-dourado);
-  box-shadow: 0 0 0 1px rgba(212, 160, 23, 0.20), 0 16px 40px rgba(212, 160, 23, 0.22);
-  transform: scale(1.03);
+  box-shadow: 0 0 0 1px rgba(212, 160, 23, 0.20), 0 18px 42px rgba(212, 160, 23, 0.22);
+  transform: scale(1.05);
 }
 
 .card-destaque:hover {
-  transform: scale(1.03) translateY(-4px);
-  box-shadow: 0 0 0 1px rgba(212, 160, 23, 0.30), 0 22px 50px rgba(212, 160, 23, 0.30);
+  transform: scale(1.05) translateY(-4px);
+  box-shadow: 0 0 0 1px rgba(212, 160, 23, 0.32), 0 24px 54px rgba(212, 160, 23, 0.32);
 }
 
 .card-etiqueta {
@@ -343,8 +382,8 @@ img {
   color: var(--cor-ancora);
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  padding: 0.35rem 1rem;
+  letter-spacing: 0.06em;
+  padding: 0.4rem 1.1rem;
   border-radius: 999px;
   white-space: nowrap;
   box-shadow: 0 4px 12px rgba(212, 160, 23, 0.35);
@@ -353,7 +392,7 @@ img {
 .pacotes-observacao {
   text-align: center;
   max-width: 640px;
-  margin: 2.5rem auto 0;
+  margin: 2.75rem auto 0;
   font-size: 0.9rem;
   color: var(--cor-suave);
 }
