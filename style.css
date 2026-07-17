@@ -5,17 +5,18 @@
   box-sizing: border-box;
 }
 
-/* ===== Variáveis de tema (dark) ===== */
+/* ===== Variáveis de tema (light) ===== */
 :root {
-  --cor-fundo: #0B1120;       /* fundo principal, azul-escuro quase preto */
-  --cor-fundo-alt: #111827;   /* fundo alternado das seções */
-  --cor-texto: #F1F5F9;       /* texto principal claro */
-  --cor-suave: #94A3B8;       /* texto secundário */
-  --cor-marca: #6366F1;       /* roxo de destaque */
-  --cor-marca-escura: #4F46E5;/* hover dos botões */
-  --cor-card: #1E293B;        /* fundo dos cards */
-  --cor-borda: #334155;       /* bordas suaves */
-  --cor-rodape: #060B14;      /* fundo bem escuro do rodapé */
+  --cor-fundo: #F8FAFB;       /* fundo principal claro */
+  --cor-fundo-alt: #EEF2F5;   /* fundo alternado das seções, cinza-claro */
+  --cor-ancora: #0F2233;      /* azul-noite — header, footer, destaques escuros */
+  --cor-texto: #0F2233;       /* texto principal escuro sobre fundo claro */
+  --cor-suave: #5B7085;       /* texto secundário/cinza */
+  --cor-marca: #22C55E;       /* verde — cor de ação: botões, links, ícones ✓ */
+  --cor-marca-escura: #16A34A;/* hover dos botões verdes */
+  --cor-dourado: #D4A017;     /* cor secundária premium: selo, detalhes */
+  --cor-card: #FFFFFF;        /* fundo dos cards, branco */
+  --cor-borda: #E2E8ED;       /* bordas suaves */
   --cor-zap: #25D366;
   --fonte: 'Poppins', sans-serif;
 
@@ -27,10 +28,11 @@
   --altura-topo: 72px;
   --largura-texto: 700px;
 
-  /* Sombras padronizadas — escuras e sutis para o tema dark */
-  --sombra-card: 0 4px 16px rgba(0, 0, 0, 0.35);
-  --sombra-card-hover: 0 16px 36px rgba(0, 0, 0, 0.5);
-  --sombra-marca: 0 8px 24px rgba(99, 102, 241, 0.45);
+  /* Sombras padronizadas — leves e sutis para o tema claro */
+  --sombra-card: 0 4px 16px rgba(15, 34, 51, 0.06);
+  --sombra-card-hover: 0 14px 34px rgba(15, 34, 51, 0.12);
+  --sombra-marca: 0 8px 24px rgba(34, 197, 94, 0.35);
+  --sombra-dourado: 0 10px 32px rgba(212, 160, 23, 0.22);
 }
 
 /* ===== Base ===== */
@@ -38,8 +40,8 @@ html {
   scroll-behavior: smooth;
   /* impede que o conteúdo fique escondido sob o header fixo ao usar âncoras */
   scroll-padding-top: var(--altura-topo);
-  /* faz controles nativos (select, scrollbar) renderizarem em modo escuro */
-  color-scheme: dark;
+  /* faz controles nativos (select, scrollbar) renderizarem em modo claro */
+  color-scheme: light;
 }
 
 body {
@@ -139,7 +141,7 @@ img {
   padding: 0.9rem 2rem;
   border: none;
   border-radius: var(--raio-pequeno);
-  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.28);
   transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
 }
@@ -152,11 +154,11 @@ img {
 
 .btn-principal:active {
   transform: translateY(0);
-  box-shadow: 0 4px 12px rgba(67, 56, 202, 0.25);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.28);
 }
 
 .btn-principal:focus-visible {
-  outline: 3px solid rgba(79, 70, 229, 0.4);
+  outline: 3px solid rgba(34, 197, 94, 0.45);
   outline-offset: 2px;
 }
 
@@ -165,10 +167,10 @@ img {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background-color: rgba(11, 17, 32, 0.85);
+  background-color: rgba(15, 34, 51, 0.92);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--cor-borda);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .topo-conteudo {
@@ -194,7 +196,7 @@ img {
 }
 
 .menu-link {
-  color: var(--cor-texto);
+  color: #E5EAF0;
   text-decoration: none;
   font-weight: 400;
   transition: color 0.2s ease;
@@ -309,7 +311,7 @@ img {
   position: absolute;
   left: 0;
   top: 0;
-  color: var(--cor-zap);
+  color: var(--cor-marca);
   font-weight: 700;
 }
 
@@ -320,16 +322,16 @@ img {
   margin-top: auto;
 }
 
-/* Card em destaque (Profissional) — glow roxo */
+/* Card em destaque (Profissional) — glow dourado premium */
 .card-destaque {
-  border: 2px solid var(--cor-marca);
-  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.25), 0 16px 40px rgba(99, 102, 241, 0.35);
+  border: 2px solid var(--cor-dourado);
+  box-shadow: 0 0 0 1px rgba(212, 160, 23, 0.20), 0 16px 40px rgba(212, 160, 23, 0.22);
   transform: scale(1.03);
 }
 
 .card-destaque:hover {
   transform: scale(1.03) translateY(-4px);
-  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.35), 0 22px 50px rgba(99, 102, 241, 0.45);
+  box-shadow: 0 0 0 1px rgba(212, 160, 23, 0.30), 0 22px 50px rgba(212, 160, 23, 0.30);
 }
 
 .card-etiqueta {
@@ -337,14 +339,15 @@ img {
   top: 0;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--cor-marca);
-  color: #FFFFFF;
+  background-color: var(--cor-dourado);
+  color: var(--cor-ancora);
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.05em;
   padding: 0.35rem 1rem;
   border-radius: 999px;
   white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(212, 160, 23, 0.35);
 }
 
 .pacotes-observacao {
@@ -382,7 +385,7 @@ img {
 }
 
 .card-portfolio:focus-within {
-  outline: 3px solid rgba(99, 102, 241, 0.5);
+  outline: 3px solid rgba(34, 197, 94, 0.5);
   outline-offset: 3px;
 }
 
@@ -400,8 +403,8 @@ img {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  background: linear-gradient(135deg, var(--cor-marca) 0%, var(--cor-marca-escura) 100%);
-  color: #FFFFFF;
+  background: linear-gradient(135deg, var(--cor-fundo-alt) 0%, var(--cor-borda) 100%);
+  color: var(--cor-suave);
   font-weight: 600;
   font-size: 1.25rem;
   transition: transform 0.35s ease;
@@ -483,7 +486,7 @@ img {
   font-weight: 700;
   font-size: 1.5rem;
   border-radius: 50%;
-  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.25);
+  box-shadow: 0 6px 16px rgba(34, 197, 94, 0.28);
 }
 
 .passo-titulo {
@@ -575,7 +578,7 @@ select {
   font-family: var(--fonte);
   font-size: 1rem;
   color: var(--cor-texto);
-  background-color: var(--cor-fundo-alt);
+  background-color: var(--cor-card);
   padding: 0.85rem 1rem;
   border: 1px solid var(--cor-borda);
   border-radius: var(--raio-pequeno);
@@ -597,7 +600,7 @@ textarea:focus,
 select:focus {
   outline: none;
   border-color: var(--cor-marca);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.22);
 }
 
 textarea {
@@ -636,16 +639,16 @@ label {
 
 /* ===== Rodapé (#rodape) ===== */
 #rodape {
-  background-color: var(--cor-rodape);
-  border-top: 1px solid var(--cor-borda);
-  color: var(--cor-suave);
+  background-color: var(--cor-ancora);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #B9C4D1;
   padding-top: 3rem;
   padding-bottom: 3rem;
   font-size: 0.95rem;
 }
 
 #rodape a {
-  color: var(--cor-suave);
+  color: #B9C4D1;
   text-decoration: none;
   transition: color 0.2s ease;
 }
