@@ -462,42 +462,112 @@ img {
   outline: none;
 }
 
-/* ===== Como funciona (#como-funciona) ===== */
+/* ===== Como funciona (#como-funciona) — timeline zigue-zague ===== */
+#como-funciona {
+  padding-top: clamp(56px, 8vw, 100px);
+  padding-bottom: clamp(56px, 8vw, 100px);
+}
+
+/* Detalhe dourado abaixo do título da seção */
+.como-cabecalho::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 3px;
+  background-color: var(--cor-dourado);
+  border-radius: 999px;
+  margin: 1rem auto 0;
+}
+
 .passos-grade {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+/* Timeline vertical central sutil */
+.passos-grade::before {
+  content: "";
+  position: absolute;
+  top: 1rem;
+  bottom: 1rem;
+  left: 50%;
+  width: 2px;
+  background-color: var(--cor-borda);
+  transform: translateX(-1px);
 }
 
 .passo {
-  text-align: center;
-  padding: 0 0.5rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 3rem;
+  padding: 0;
+  text-align: left;
+}
+
+/* Passo ímpar (1, 3): número à esquerda (próximo do centro), texto à direita */
+.passo:nth-child(odd) .passo-numero {
+  grid-column: 1;
+  justify-self: end;
+}
+.passo:nth-child(odd) .passo-texto {
+  grid-column: 2;
+  justify-self: start;
+  text-align: left;
+}
+
+/* Passo par (2, 4): número à direita (próximo do centro), texto à esquerda */
+.passo:nth-child(even) .passo-numero {
+  grid-column: 2;
+  justify-self: start;
+}
+.passo:nth-child(even) .passo-texto {
+  grid-column: 1;
+  justify-self: end;
+  text-align: right;
 }
 
 .passo-numero {
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 1.25rem;
+  width: 88px;
+  height: 88px;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--cor-marca);
-  color: #FFFFFF;
+  background-color: var(--cor-card);
+  color: var(--cor-dourado);
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
+  line-height: 1;
+  border: 2px solid var(--cor-dourado);
   border-radius: 50%;
-  box-shadow: 0 6px 16px rgba(34, 197, 94, 0.28);
+  box-shadow: 0 8px 24px rgba(212, 160, 23, 0.22);
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.passo-texto {
+  max-width: 360px;
 }
 
 .passo-titulo {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  color: var(--cor-texto);
 }
 
 .passo-desc {
   color: var(--cor-suave);
-  font-size: 0.95rem;
+  font-size: 0.98rem;
+  line-height: 1.6;
 }
 
 /* ===== FAQ (#faq) ===== */
@@ -659,11 +729,21 @@ label {
 
 /* ===== Responsivo ===== */
 
-/* Tablet: pacotes e portfólio empilham; passos viram 2 colunas */
+/* Tablet: pacotes e portfólio empilham; passos ficam mais compactos */
 @media (max-width: 900px) {
   .passos-grade {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2.5rem 2rem;
+    gap: 2.5rem;
+    max-width: 620px;
+  }
+
+  .passo {
+    gap: 2rem;
+  }
+
+  .passo-numero {
+    width: 76px;
+    height: 76px;
+    font-size: 2.1rem;
   }
 
   .pacotes-grade,
@@ -694,11 +774,43 @@ label {
     display: none;
   }
 
+  /* Mobile: empilha em coluna centrada, sem zigue-zague nem timeline */
+  .passos-grade::before {
+    display: none;
+  }
+
   .passos-grade {
-    grid-template-columns: 1fr;
-    max-width: 360px;
+    max-width: 400px;
+    gap: 2.5rem;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .passo {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    text-align: center;
+    justify-items: center;
+  }
+
+  .passo:nth-child(odd) .passo-numero,
+  .passo:nth-child(even) .passo-numero {
+    grid-column: 1;
+    justify-self: center;
+  }
+
+  .passo:nth-child(odd) .passo-texto,
+  .passo:nth-child(even) .passo-texto {
+    grid-column: 1;
+    justify-self: center;
+    text-align: center;
+    max-width: none;
+  }
+
+  .passo-numero {
+    width: 72px;
+    height: 72px;
+    font-size: 2rem;
   }
 
   .hero-conteudo {
