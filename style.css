@@ -7,16 +7,16 @@
 
 /* ===== Variáveis de tema (light) ===== */
 :root {
-  --cor-fundo: #F8FAFB;       /* fundo principal claro */
-  --cor-fundo-alt: #EEF2F5;   /* fundo alternado das seções, cinza-claro */
-  --cor-ancora: #0F2233;      /* azul-noite — header, footer, destaques escuros */
-  --cor-texto: #0F2233;       /* texto principal escuro sobre fundo claro */
-  --cor-suave: #5B7085;       /* texto secundário/cinza */
+  --cor-fundo: #0D1520;       /* fundo principal claro */
+  --cor-fundo-alt: #161F2B;   /* fundo alternado das seções, cinza-claro */
+  --cor-ancora: #0A1019;      /* azul-noite — header, footer, destaques escuros */
+  --cor-texto: #F1F5F9;       /* texto principal escuro sobre fundo claro */
+  --cor-suave: #94A3B8;       /* texto secundário/cinza */
   --cor-marca: #D4A017;       /* verde — cor de ação: botões, links, ícones ✓ */
   --cor-marca-escura: #B8860B;/* hover dos botões verdes */
   --cor-dourado: #D4A017;     /* cor secundária premium: selo, detalhes */
-  --cor-card: #FFFFFF;        /* fundo dos cards, branco */
-  --cor-borda: #E2E8ED;       /* bordas suaves */
+  --cor-card: #161F2B;        /* fundo dos cards, branco */
+  --cor-borda: #243040;       /* bordas suaves */
   --cor-zap: #25D366;
   --fonte: 'Poppins', sans-serif;
 
