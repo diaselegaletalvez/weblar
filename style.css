@@ -872,3 +872,72 @@ label {
     padding: 1.75rem 1.25rem;
   }
 }
+
+/* ===== Como Funciona — zigue-zague com timeline (override) ===== */
+.passos-grade {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 820px;
+  margin: 3rem auto 0;
+  position: relative;
+}
+.passos-grade::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 40px;
+  bottom: 40px;
+  width: 2px;
+  background: var(--cor-borda);
+  transform: translateX(-50%);
+}
+.passo {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 60%;
+  position: relative;
+  padding: 1.5rem 0;
+}
+.passo:nth-child(odd) {
+  align-self: flex-start;
+  flex-direction: row;
+  text-align: right;
+}
+.passo:nth-child(even) {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+  text-align: left;
+}
+.passo-numero {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--cor-marca);
+  color: var(--cor-ancora, #0F2233);
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(212,160,23,0.35);
+  z-index: 2;
+}
+.passo-titulo { margin-bottom: 0.4rem; font-size: 1.15rem; }
+.passo-desc { color: var(--cor-suave); font-size: 0.95rem; line-height: 1.5; }
+
+@media (max-width: 760px) {
+  .passos-grade::before { left: 36px; transform: none; }
+  .passo,
+  .passo:nth-child(odd),
+  .passo:nth-child(even) {
+    width: 100%;
+    align-self: flex-start;
+    flex-direction: row;
+    text-align: left;
+    gap: 1.25rem;
+  }
+  .passo-numero { width: 56px; height: 56px; font-size: 1.5rem; }
+}
