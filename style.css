@@ -981,3 +981,75 @@ label {
   align-items: center;
   gap: 0.5rem;
 }
+
+/* ===== Portfólio — relayout sofisticado ===== */
+#portfolio {
+  padding: clamp(72px, 10vw, 110px) 0;
+  background: var(--cor-fundo-alt);
+}
+.portfolio-cabecalho {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 3.5rem;
+}
+.portfolio-cabecalho h2 {
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+  margin-bottom: 0.8rem;
+}
+.portfolio-cabecalho::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 3px;
+  background: var(--cor-marca);
+  border-radius: 2px;
+  margin: 1rem auto 0;
+}
+.portfolio-subtitulo { color: var(--cor-suave); font-size: 1.05rem; }
+.portfolio-grade {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.card-portfolio {
+  background: var(--cor-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.card-portfolio:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+  border-color: var(--cor-marca);
+}
+.card-portfolio-img-wrap {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+.card-portfolio-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.card-portfolio:hover .card-portfolio-img { transform: scale(1.06); }
+.card-portfolio-texto {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.card-portfolio-nome { font-size: 1.2rem; margin-bottom: 0.5rem; }
+.card-portfolio-desc { color: var(--cor-suave); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.25rem; }
+.card-portfolio-botao { margin-top: auto; align-self: flex-start; }
+@media (max-width: 860px) {
+  .portfolio-grade { grid-template-columns: 1fr; max-width: 420px; }
+}
