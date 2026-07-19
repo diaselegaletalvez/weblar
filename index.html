@@ -25,6 +25,23 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<script id="detecta-auth">
+// Detecta retorno de link de auth do Supabase e redireciona pra pagina certa
+(function(){
+  var h = window.location.hash || '';
+  var s = window.location.search || '';
+  // ERRO: link usado/expirado -> pagina amigavel
+  if (h.indexOf('error=') !== -1 || h.indexOf('otp_expired') !== -1 || h.indexOf('access_denied') !== -1) {
+    window.location.replace('/link-expirado/');
+    return;
+  }
+  // SUCESSO: confirmacao de e-mail (veio com token) -> pagina confirmado
+  if (h.indexOf('access_token') !== -1 || h.indexOf('type=signup') !== -1 || s.indexOf('type=signup') !== -1) {
+    window.location.replace('/confirmado/' + h);
+    return;
+  }
+})();
+</script>
 </head>
 <body>
 
