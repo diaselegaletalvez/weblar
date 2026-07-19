@@ -62,6 +62,7 @@
   #status { font-size: 14px; margin-top: 16px; }
   .oculto { display: none; }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <div class="card">
@@ -91,6 +92,10 @@
 
 <script>
   const SUPABASE_FN_URL = "https://unsvccbzrrgnvzvdwwrz.supabase.co/functions/v1/confirmar-exclusao-conta";
+  const sbConfirma = window.supabase.createClient(
+    'https://unsvccbzrrgnvzvdwwrz.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVuc3ZjY2J6cnJnbnZ6dmR3d3J6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0MzE0OTUsImV4cCI6MjEwMDAwNzQ5NX0.LI121gkIHkiplDTcolv6e6is6LxN0I1Ebmil5tJKRxY'
+  );
 
   const params = new URLSearchParams(window.location.search);
   const token = params.get("token");
@@ -127,6 +132,8 @@
         return;
       }
 
+      // A conta foi apagada no servidor; limpa qualquer sessao local
+      try { await sbConfirma.auth.signOut({ scope: 'local' }); } catch (e) {}
       elConfirmacao.classList.add("oculto");
       elSucesso.classList.remove("oculto");
     } catch (e) {

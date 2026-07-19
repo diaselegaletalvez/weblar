@@ -205,10 +205,11 @@ form.addEventListener('submit', async (e) => {
   btn.disabled = true;
   btn.textContent = 'Criando conta...';
 
+  const refParam = new URLSearchParams(window.location.search).get('ref') || null;
   const { data, error } = await clienteSupabase.auth.signUp({
     email: email,
     password: senha,
-    options: { data: { full_name: nome, birth_date: nascimento } }
+    options: { data: { full_name: nome, birth_date: nascimento, referred_by: refParam } }
   });
 
   if (error) {
