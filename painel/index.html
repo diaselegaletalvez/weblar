@@ -122,6 +122,7 @@
     .cards { grid-template-columns: 1fr; }
   }
 </style>
+<style id="guard-style">body{visibility:hidden}</style>
 </head>
 <body>
 
@@ -267,7 +268,8 @@ document.getElementById('btn-sair').addEventListener('click', async () => {
 
 (async () => {
   const { data: { session } } = await cli.auth.getSession();
-  if (!session) { window.location.href = '../login/'; return; }
+  if (!session) { window.location.replace('../login/'); return; }
+  document.body.style.visibility = 'visible';
   const user = session.user;
 
   const { data: perfil } = await cli.from('profiles').select('*').eq('id', user.id).single();

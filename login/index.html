@@ -125,13 +125,13 @@
 </div>
 
 <script>
-const supabase = window.supabase.createClient(
+const sbLogin = window.supabase.createClient(
   'https://unsvccbzrrgnvzvdwwrz.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVuc3ZjY2J6cnJnbnZ6dmR3d3J6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0MzE0OTUsImV4cCI6MjEwMDAwNzQ5NX0.LI121gkIHkiplDTcolv6e6is6LxN0I1Ebmil5tJKRxY'
 );
 
 // Se já estiver logado, manda direto pro painel
-supabase.auth.getSession().then(({ data: { session } }) => {
+sbLogin.auth.getSession().then(({ data: { session } }) => {
   if (session) window.location.href = '../painel/';
 });
 
@@ -154,7 +154,7 @@ form.addEventListener('submit', async (e) => {
   btn.disabled = true;
   btn.textContent = 'Entrando...';
 
-  const { error } = await supabase.auth.signInWithPassword({
+  const { error } = await sbLogin.auth.signInWithPassword({
     email: email,
     password: senha
   });
