@@ -291,7 +291,7 @@
 
         <div class="zp-card zp-card-critico">
           <div class="zp-info"><h4>Excluir minha conta <span class="tag-breve">em breve</span></h4><p>Apaga permanentemente sua conta e todos os dados. Não dá pra desfazer.</p></div>
-          <button class="btn-perigo" disabled>Excluir conta</button>
+          <button class="btn-perigo" id="btnExcluirConta" onclick="pedirExclusaoConta()">Excluir conta</button>
         </div>
       </div>
 
@@ -303,6 +303,55 @@ const cli = window.supabase.createClient(
   'https://unsvccbzrrgnvzvdwwrz.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVuc3ZjY2J6cnJnbnZ6dmR3d3J6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0MzE0OTUsImV4cCI6MjEwMDAwNzQ5NX0.LI121gkIHkiplDTcolv6e6is6LxN0I1Ebmil5tJKRxY'
 );
+
+async function pedirExclusaoConta() {
+  const confirmado = confirm(
+    "Isso vai apagar sua conta, pedidos e sites permanentemente. Voce vai receber um e-mail de confirmacao. Continuar?"
+  );
+  if (!confirmado) return;
+
+  const btn = document.getElementById("btnExcluirConta");
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "Enviando...";
+  }
+
+  try {
+    const { data: sessionData } = await cli.auth.getSession();
+    const token = sessionData?.session?.access_token;
+    if (!token) {
+      alert("Sessao expirada. Faca login novamente.");
+      return;
+    }
+
+    const resp = await fetch(
+      "https://unsvccbzrrgnvzvdwwrz.supabase.co/functions/v1/solicitar-exclusao-conta",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await resp.json();
+
+    if (!resp.ok) {
+      alert(data.error || "Nao foi possivel enviar o e-mail de confirmacao.");
+      return;
+    }
+
+    alert("Enviamos um e-mail de confirmacao. Clique no link pra concluir a exclusao da conta.");
+  } catch (e) {
+    alert("Erro de conexao. Tente novamente.");
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = "Excluir conta";
+    }
+  }
+}
+
 function itemPedido(p){return `<div class="item"><div class="item-info"><h3>${p.title}</h3><p>Pedido em ${new Date(p.created_at).toLocaleDateString('pt-BR')}</p></div><span class="status">${p.status}</span></div>`;}
 function itemSite(s){return `<div class="item"><div class="item-info"><h3>${s.url}</h3><p>Status: ${s.status}</p></div><a href="${s.url}" target="_blank" class="site-link">Abrir →</a></div>`;}
 function irPara(secao){

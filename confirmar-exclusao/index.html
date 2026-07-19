@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirmar exclusão de conta — Weblar</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #0D1520;
+    color: #F1F5F9;
+    font-family: 'Inter', Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    max-width: 460px;
+    width: 100%;
+    background: #141F30;
+    border: 1px solid #2A3646;
+    border-radius: 14px;
+    padding: 36px 32px;
+    text-align: center;
+  }
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 24px;
+    margin: 0 0 16px;
+  }
+  p { color: #9AA5B1; font-size: 15px; line-height: 1.6; margin: 0 0 24px; }
+  .aviso {
+    background: rgba(224,86,86,0.1);
+    border: 1px solid #e05656;
+    border-radius: 8px;
+    padding: 14px;
+    color: #F1F5F9;
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  button, .btn {
+    display: inline-block;
+    width: 100%;
+    padding: 13px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 12px;
+    font-family: 'Inter', Arial, sans-serif;
+  }
+  .btn-excluir { background: #e05656; color: #F1F5F9; }
+  .btn-excluir:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-cancelar { background: transparent; color: #9AA5B1; border: 1px solid #2A3646; }
+  #status { font-size: 14px; margin-top: 16px; }
+  .oculto { display: none; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div id="estado-confirmacao">
+      <h1>Excluir sua conta</h1>
+      <div class="aviso">
+        Isso vai apagar permanentemente seu perfil, pedidos e sites cadastrados no Weblar. Não tem como desfazer.
+      </div>
+      <p>Tem certeza que quer continuar?</p>
+      <button class="btn-excluir" id="btnConfirmar">Sim, excluir minha conta permanentemente</button>
+      <a class="btn btn-cancelar" href="https://weblar.app.br/painel/">Cancelar</a>
+      <div id="status"></div>
+    </div>
+
+    <div id="estado-sucesso" class="oculto">
+      <h1>Conta excluída</h1>
+      <p>Sua conta e seus dados foram removidos permanentemente. Sentiremos sua falta.</p>
+      <a class="btn btn-cancelar" href="https://weblar.app.br/">Voltar para o site</a>
+    </div>
+
+    <div id="estado-erro" class="oculto">
+      <h1>Link inválido ou expirado</h1>
+      <p id="msgErro">Esse link de confirmação não é mais válido. Peça a exclusão novamente pelo painel.</p>
+      <a class="btn btn-cancelar" href="https://weblar.app.br/painel/">Voltar ao painel</a>
+    </div>
+  </div>
+
+<script>
+  const SUPABASE_FN_URL = "https://unsvccbzrrgnvzvdwwrz.supabase.co/functions/v1/confirmar-exclusao-conta";
+
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get("token");
+
+  const elConfirmacao = document.getElementById("estado-confirmacao");
+  const elSucesso = document.getElementById("estado-sucesso");
+  const elErro = document.getElementById("estado-erro");
+  const btnConfirmar = document.getElementById("btnConfirmar");
+  const statusEl = document.getElementById("status");
+
+  if (!token) {
+    elConfirmacao.classList.add("oculto");
+    document.getElementById("msgErro").textContent = "Nenhum token de confirmação foi encontrado nesse link.";
+    elErro.classList.remove("oculto");
+  }
+
+  btnConfirmar.addEventListener("click", async () => {
+    btnConfirmar.disabled = true;
+    btnConfirmar.textContent = "Excluindo...";
+    statusEl.textContent = "";
+
+    try {
+      const resp = await fetch(SUPABASE_FN_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token }),
+      });
+      const data = await resp.json();
+
+      if (!resp.ok) {
+        elConfirmacao.classList.add("oculto");
+        document.getElementById("msgErro").textContent = data.error || "Não foi possível confirmar a exclusão.";
+        elErro.classList.remove("oculto");
+        return;
+      }
+
+      elConfirmacao.classList.add("oculto");
+      elSucesso.classList.remove("oculto");
+    } catch (e) {
+      statusEl.textContent = "Erro de conexão. Tente novamente.";
+      btnConfirmar.disabled = false;
+      btnConfirmar.textContent = "Sim, excluir minha conta permanentemente";
+    }
+  });
+</script>
+</body>
+</html>
