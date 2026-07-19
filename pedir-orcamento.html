@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18281250397"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18281250397');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedir orçamento — Weblar</title>
+  <meta name="description" content="Criamos sites profissionais para comércios e pequenos negócios no Brasil. Sua loja na internet, pronta para vender.">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header id="topo">
+    <div class="container topo-conteudo">
+      <a href="index.html" class="logo">
+        <img src="assets/logo-simbolo.svg" alt="" class="logo-simbolo">
+        <span class="logo-nome">Weblar</span>
+      </a>
+      <nav class="menu">
+        <a href="index.html#portfolio" class="menu-link">Portfólio</a>
+        <a href="index.html#pacotes" class="menu-link">Pacotes</a>
+        <a href="index.html#como-funciona" class="menu-link">Como funciona</a>
+        <a href="index.html#faq" class="menu-link">FAQ</a>
+        <a href="pedir-orcamento.html" class="btn-principal btn-menu">Pedir orçamento</a>
+      </nav>
+    </div>
+  </header>
+  <section id="orcamento">
+    <div class="container">
+      <div class="orcamento-cabecalho">
+        <h2>Peça seu orçamento</h2>
+        <p class="orcamento-subtitulo">Conte um pouco sobre o seu negócio. Respondo em até 24h, sem compromisso.</p>
+      </div>
+
+      <form class="form-orcamento" action="https://formspree.io/f/mqevazaj" method="POST">
+        <input type="hidden" name="_next" value="https://weblar.app.br/obrigado/">
+        <div class="campo-grupo">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" name="nome" class="campo" placeholder="Seu nome" required>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" class="campo" placeholder="voce@email.com" required>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="whatsapp">WhatsApp</label>
+          <input type="tel" id="whatsapp" name="whatsapp" class="campo" placeholder="(00) 00000-0000">
+        </div>
+
+        <div class="campo-grupo">
+          <label for="negocio">Tipo de negócio</label>
+          <input type="text" id="negocio" name="negocio" class="campo" placeholder="Ex.: padaria, clínica, oficina...">
+        </div>
+
+        <div class="campo-grupo">
+          <label for="plano">Plano de interesse</label>
+          <select id="plano" name="plano" class="campo">
+            <option value="">Ainda não sei / quero ajuda para escolher</option>
+            <option value="Básico">Básico — R$ 400</option>
+            <option value="Profissional">Profissional — R$ 700</option>
+            <option value="Completo">Completo — R$ 1.200</option>
+          </select>
+        </div>
+
+
+        <div class="campo-grupo">
+          <label for="investimento">Quanto pretende investir?</label>
+          <select id="investimento" name="investimento" class="campo">
+            <option value="">Prefiro não dizer / não sei ainda</option>
+            <option value="Até R$ 500">Até R$ 500</option>
+            <option value="R$ 500 a R$ 1.000">R$ 500 a R$ 1.000</option>
+            <option value="R$ 1.000 a R$ 2.000">R$ 1.000 a R$ 2.000</option>
+            <option value="Acima de R$ 2.000">Acima de R$ 2.000</option>
+          </select>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="link-atual">Já tem site ou Instagram? Cola o link</label>
+          <input type="text" id="link-atual" name="link_atual" class="campo" placeholder="instagram.com/seunegocio ou seusite.com.br">
+        </div>
+
+        <div class="campo-grupo">
+          <label for="referencia">Algum site que você gosta do estilo?</label>
+          <input type="text" id="referencia" name="referencia" class="campo" placeholder="Cola o link de um site que te inspira (opcional)">
+        </div>
+
+        <div class="campo-grupo">
+          <label for="prazo">Prazo desejado</label>
+          <select id="prazo" name="prazo" class="campo">
+            <option value="">Sem pressa</option>
+            <option value="Urgente (até 1 semana)">Urgente (até 1 semana)</option>
+            <option value="Até 2 semanas">Até 2 semanas</option>
+            <option value="Até 1 mês">Até 1 mês</option>
+          </select>
+        </div>
+        <div class="campo-grupo">
+          <label for="mensagem">O que o site precisa ter?</label>
+          <textarea id="mensagem" name="mensagem" class="campo" placeholder="Ex.: cardápio, galeria de fotos, mapa, botão de WhatsApp..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-principal form-enviar">Enviar pedido de orçamento</button>
+      </form>
+    </div>
+  </section>
+  <footer id="rodape">
+    <!-- Rodapé: contato, redes sociais e direitos autorais -->
+  </footer>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18281250397"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18281250397');
+  </script>
+<script src="script.js"></script>
+</body>
+</html>

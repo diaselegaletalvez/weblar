@@ -761,7 +761,7 @@ label {
   display: flex;
   align-items: center;
   gap: 2rem;
-  width: 60%;
+  width: 46%;
   position: relative;
   padding: 1.5rem 0;
 }
@@ -1035,3 +1035,21 @@ label {
 }
 textarea.campo { min-height: 120px; resize: vertical; }
 .form-enviar { margin-top: 0.5rem; width: 100%; font-size: 1.05rem; padding: 0.95rem; }
+
+/* ===== Logo ===== */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.logo-simbolo {
+  width: 34px;
+  height: 34px;
+}
+.logo-nome {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #F1F5F9;
+}
