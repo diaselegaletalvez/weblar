@@ -45,11 +45,48 @@
   </header>
 
   <section id="hero">
-    <div class="container hero-conteudo">
-      <h1>Site profissional para o seu negócio, pronto em poucos dias</h1>
-      <p class="hero-apoio">A Weblar cria sites rápidos, bonitos e que aparecem no Google — para comércios, autônomos e pequenas empresas. Sem complicação, do orçamento ao site no ar.</p>
-      <a href="pedir-orcamento.html" class="btn-principal">Pedir orçamento</a>
-      <p class="hero-nota">Resposta em até 24h • Orçamento sem compromisso</p>
+    <div class="container hero-grid">
+      <div class="hero-conteudo">
+        <span class="hero-badge">Sites para pequenos negócios</span>
+        <h1>Site profissional para o seu negócio, pronto em poucos dias</h1>
+        <p class="hero-apoio">A Weblar cria sites rápidos, bonitos e que aparecem no Google — para comércios, autônomos e pequenas empresas. Sem complicação, do orçamento ao site no ar.</p>
+        <div class="hero-ctas">
+          <a href="pedir-orcamento.html" class="btn-principal">Pedir orçamento</a>
+          <a href="#portfolio" class="hero-link-secundario">Ver portfólio →</a>
+        </div>
+        <p class="hero-nota">Resposta em até 24h • Orçamento sem compromisso</p>
+      </div>
+
+      <div class="hero-mockup" aria-hidden="true">
+        <div class="hero-mockup-glow"></div>
+        <div class="mockup-janela">
+          <div class="mockup-topo">
+            <span class="mockup-bolinha"></span>
+            <span class="mockup-bolinha"></span>
+            <span class="mockup-bolinha"></span>
+            <span class="mockup-url">seunegocio.com.br</span>
+          </div>
+          <div class="mockup-corpo">
+            <div class="mockup-header">
+              <span class="mockup-logo"></span>
+              <span class="mockup-menu">
+                <span></span><span></span><span></span>
+              </span>
+            </div>
+            <div class="mockup-hero">
+              <span class="mockup-titulo"></span>
+              <span class="mockup-titulo-2"></span>
+              <span class="mockup-linha"></span>
+              <span class="mockup-btn"></span>
+            </div>
+            <div class="mockup-cards">
+              <div class="mockup-card"></div>
+              <div class="mockup-card"></div>
+              <div class="mockup-card"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -245,86 +282,6 @@
           <p class="faq-resposta">Sim. Todos os sites são otimizados para o básico de SEO, ajudando seu negócio a ser encontrado. Os planos Profissional e Completo têm otimização reforçada.</p>
         </details>
       </div>
-    </div>
-  </section>
-
-  <section id="orcamento">
-    <div class="container">
-      <div class="orcamento-cabecalho">
-        <h2>Peça seu orçamento</h2>
-        <p class="orcamento-subtitulo">Conte um pouco sobre o seu negócio. Respondo em até 24h, sem compromisso.</p>
-      </div>
-
-      <form class="form-orcamento" action="https://formspree.io/f/mqevazaj" method="POST">
-        <input type="hidden" name="_next" value="https://weblar.app.br/obrigado/">
-        <div class="campo-grupo">
-          <label for="nome">Nome</label>
-          <input type="text" id="nome" name="nome" class="campo" placeholder="Seu nome" required>
-        </div>
-
-        <div class="campo-grupo">
-          <label for="email">E-mail</label>
-          <input type="email" id="email" name="email" class="campo" placeholder="voce@email.com" required>
-        </div>
-
-        <div class="campo-grupo">
-          <label for="whatsapp">WhatsApp</label>
-          <input type="tel" id="whatsapp" name="whatsapp" class="campo" placeholder="(00) 00000-0000">
-        </div>
-
-        <div class="campo-grupo">
-          <label for="negocio">Tipo de negócio</label>
-          <input type="text" id="negocio" name="negocio" class="campo" placeholder="Ex.: padaria, clínica, oficina...">
-        </div>
-
-        <div class="campo-grupo">
-          <label for="plano">Plano de interesse</label>
-          <select id="plano" name="plano" class="campo">
-            <option value="">Ainda não sei / quero ajuda para escolher</option>
-            <option value="Básico">Básico — R$ 400</option>
-            <option value="Profissional">Profissional — R$ 700</option>
-            <option value="Completo">Completo — R$ 1.200</option>
-          </select>
-        </div>
-
-
-        <div class="campo-grupo">
-          <label for="investimento">Quanto pretende investir?</label>
-          <select id="investimento" name="investimento" class="campo">
-            <option value="">Prefiro não dizer / não sei ainda</option>
-            <option value="Até R$ 500">Até R$ 500</option>
-            <option value="R$ 500 a R$ 1.000">R$ 500 a R$ 1.000</option>
-            <option value="R$ 1.000 a R$ 2.000">R$ 1.000 a R$ 2.000</option>
-            <option value="Acima de R$ 2.000">Acima de R$ 2.000</option>
-          </select>
-        </div>
-
-        <div class="campo-grupo">
-          <label for="link-atual">Já tem site ou Instagram? Cola o link</label>
-          <input type="text" id="link-atual" name="link_atual" class="campo" placeholder="instagram.com/seunegocio ou seusite.com.br">
-        </div>
-
-        <div class="campo-grupo">
-          <label for="referencia">Algum site que você gosta do estilo?</label>
-          <input type="text" id="referencia" name="referencia" class="campo" placeholder="Cola o link de um site que te inspira (opcional)">
-        </div>
-
-        <div class="campo-grupo">
-          <label for="prazo">Prazo desejado</label>
-          <select id="prazo" name="prazo" class="campo">
-            <option value="">Sem pressa</option>
-            <option value="Urgente (até 1 semana)">Urgente (até 1 semana)</option>
-            <option value="Até 2 semanas">Até 2 semanas</option>
-            <option value="Até 1 mês">Até 1 mês</option>
-          </select>
-        </div>
-        <div class="campo-grupo">
-          <label for="mensagem">O que o site precisa ter?</label>
-          <textarea id="mensagem" name="mensagem" class="campo" placeholder="Ex.: cardápio, galeria de fotos, mapa, botão de WhatsApp..."></textarea>
-        </div>
-
-        <button type="submit" class="btn-principal form-enviar">Enviar pedido de orçamento</button>
-      </form>
     </div>
   </section>
 
