@@ -37,7 +37,7 @@
   }
   // SUCESSO: confirmacao de e-mail (veio com token) -> pagina confirmado
   if (h.indexOf('access_token') !== -1 || h.indexOf('type=signup') !== -1 || s.indexOf('type=signup') !== -1) {
-    window.location.replace('/confirmado/' + h);
+    window.location.replace('/sucesso/?tipo=cadastro' + h);
     return;
   }
 })();

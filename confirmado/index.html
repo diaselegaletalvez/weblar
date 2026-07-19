@@ -2,75 +2,11 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E-mail confirmado — Weblar</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="icon" href="../favicon.svg">
-<style>
-  :root {
-    --navy: #0D1520; --navy-card: #141F30; --gold: #D4A017;
-    --texto: #F1F5F9; --texto-fraco: #9AA5B1; --linha: #2A3646; --verde: #6fbf8b;
-  }
-  * { box-sizing: border-box; }
-  body {
-    font-family: 'Inter', sans-serif; background: var(--navy); color: var(--texto);
-    margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
-    padding: 40px 20px; text-align: center;
-  }
-  .card {
-    background: var(--navy-card); border: 1px solid rgba(212,160,23,0.2);
-    border-radius: 16px; padding: 48px 40px; max-width: 460px; width: 100%;
-  }
-  .logo { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:32px; text-decoration:none; }
-  .logo img { width: 30px; height: 30px; }
-  .logo span { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; color: var(--texto); }
-  .check {
-    width: 76px; height: 76px; border-radius: 50%; margin: 0 auto 24px;
-    background: rgba(111,191,139,0.15); display: flex; align-items: center; justify-content: center;
-    animation: pop 0.4s ease-out;
-  }
-  @keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
-  .check svg { width: 40px; height: 40px; stroke: var(--verde); fill: none; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
-  h1 { font-family: 'Playfair Display', serif; font-size: 1.9rem; margin: 0 0 12px; }
-  .texto { color: var(--texto-fraco); font-size: 1.02rem; line-height: 1.6; margin: 0 0 32px; }
-  .destaque { color: var(--gold); font-weight: 600; }
-  .botoes { display: flex; gap: 12px; flex-direction: column; }
-  .btn-gold {
-    background: var(--gold); color: var(--navy); padding: 14px; border-radius: 8px;
-    text-decoration: none; font-weight: 600; font-size: 0.95rem;
-  }
-  .btn-gold:hover { opacity: 0.9; }
-  .btn-outline {
-    background: none; color: var(--texto-fraco); padding: 14px; border-radius: 8px;
-    text-decoration: none; font-size: 0.9rem; border: 1px solid var(--linha);
-  }
-  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-</style>
+<title>Redirecionando… — Weblar</title>
+<script>
+  var h = window.location.hash || '';
+  window.location.replace('/sucesso/?tipo=cadastro' + h);
+</script>
 </head>
-<body>
-
-<div class="card">
-  <a href="../" class="logo">
-    <img src="../assets/logo-simbolo.svg" alt=""><span>Weblar</span>
-  </a>
-
-  <div class="check">
-    <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-  </div>
-
-  <h1>E-mail confirmado! 🎉</h1>
-  <p class="texto">
-    Sua conta está <span class="destaque">ativa e pronta pra usar</span>.
-    Enviamos um guia de boas-vindas pro seu e-mail — dá uma olhada quando puder.
-  </p>
-
-  <div class="botoes">
-    <a href="../painel/" class="btn-gold">Ir para o meu painel</a>
-    <a href="../pedir-orcamento/" class="btn-outline">Pedir um orçamento</a>
-  </div>
-</div>
-
-</body>
+<body></body>
 </html>
