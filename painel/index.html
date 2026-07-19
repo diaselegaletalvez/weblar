@@ -105,6 +105,18 @@
   .config-msg { font-size: 0.85rem; margin-top: 12px; }
   .config-msg.ok { color: #6fbf8b; }
   .config-msg.erro { color: var(--vermelho); }
+  .zona-perigo-box { grid-column: 1 / -1; border: 1px solid rgba(224,86,86,0.35); background: rgba(224,86,86,0.04); border-radius: 14px; padding: 24px; margin-top: 8px; }
+  .zona-perigo-cabecalho { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 20px; }
+  .zp-alerta { width: 22px; height: 22px; stroke: #e05656; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 2px; }
+  .zona-perigo-cabecalho h3 { margin: 0 0 3px; font-size: 1.1rem; color: #e05656; }
+  .zona-perigo-cabecalho p { margin: 0; font-size: 0.85rem; color: var(--texto-fraco); }
+  .zp-card { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--navy-card); border: 1px solid var(--linha); border-radius: 10px; padding: 16px 18px; margin-bottom: 10px; }
+  .zp-card:last-child { margin-bottom: 0; }
+  .zp-card-critico { border-color: rgba(224,86,86,0.3); }
+  .zp-info h4 { margin: 0 0 4px; font-size: 0.92rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .zp-info p { margin: 0; font-size: 0.82rem; color: var(--texto-fraco); }
+  .zp-card .btn-perigo { flex-shrink: 0; }
+
   .zona-perigo { grid-column: 1 / -1; background: var(--navy-card); border: 1px dashed var(--linha); border-radius: 14px; padding: 26px; margin-top: 8px; opacity: 0.65; }
   .zona-perigo h3 { margin: 0 0 4px; font-size: 1.05rem; color: var(--texto-fraco); display: flex; align-items: center; gap: 10px; }
   .zona-perigo .tag-breve { font-size: 0.62rem; background: var(--linha); color: var(--texto-fraco); padding: 3px 9px; border-radius: 10px; font-weight: 600; }
@@ -253,10 +265,34 @@
         <div class="config-msg" id="cfg-msg-senha"></div>
       </div>
 
-      <div class="config-bloco zona-perigo">
-        <h3>Excluir conta <span class="tag-breve">em breve</span></h3>
-        <p class="desc">Em breve você poderá excluir sua conta e todos os seus dados por aqui, de forma permanente.</p>
-        <button class="btn-perigo" disabled>Excluir minha conta</button>
+      <div class="zona-perigo-box">
+        <div class="zona-perigo-cabecalho">
+          <svg class="zp-alerta" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div>
+            <h3>Zona de perigo</h3>
+            <p>Ações abaixo são sensíveis ou permanentes. Use com cuidado.</p>
+          </div>
+        </div>
+
+        <div class="zp-card">
+          <div class="zp-info"><h4>Desativar conta temporariamente <span class="tag-breve">em breve</span></h4><p>Sua conta fica pausada e você pode reativar quando quiser.</p></div>
+          <button class="btn-perigo" disabled>Desativar</button>
+        </div>
+
+        <div class="zp-card">
+          <div class="zp-info"><h4>Apagar todos os pedidos <span class="tag-breve">em breve</span></h4><p>Remove seu histórico de pedidos. Os sites entregues continuam.</p></div>
+          <button class="btn-perigo" disabled>Apagar pedidos</button>
+        </div>
+
+        <div class="zp-card">
+          <div class="zp-info"><h4>Desativar meus sites <span class="tag-breve">em breve</span></h4><p>Tira seus sites do ar temporariamente, sem apagar nada.</p></div>
+          <button class="btn-perigo" disabled>Desativar sites</button>
+        </div>
+
+        <div class="zp-card zp-card-critico">
+          <div class="zp-info"><h4>Excluir minha conta <span class="tag-breve">em breve</span></h4><p>Apaga permanentemente sua conta e todos os dados. Não dá pra desfazer.</p></div>
+          <button class="btn-perigo" disabled>Excluir conta</button>
+        </div>
       </div>
 
     </div>
