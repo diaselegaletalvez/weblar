@@ -1,130 +1,82 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18281250397"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'AW-18281250397');
-  </script>
-  <!-- Event snippet for Enviar formulário de lead conversion page -->
-  <script>
-    gtag('event', 'conversion', {
-        'send_to': 'AW-18281250397/35XGCIOCnMccEN38lo1E',
-        'value': 1.0,
-        'currency': 'USD'
-    });
-  </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pedido recebido — Weblar</title>
-  <meta name="description" content="Pedido recebido com sucesso. A Weblar responde em até 24 horas.">
-  <meta name="robots" content="noindex">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css">
-  <style>
-    /* ===== Página de obrigado ===== */
-    body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    #obrigado {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem 1.5rem;
-      background-color: var(--cor-fundo);
-    }
-
-    .obrigado-card {
-      width: 100%;
-      max-width: 560px;
-      text-align: center;
-      background-color: var(--cor-card);
-      border: 1px solid var(--cor-borda);
-      border-radius: var(--raio);
-      padding: 3rem 2.25rem;
-      box-shadow: var(--sombra-card);
-    }
-
-    .obrigado-logo {
-      display: inline-block;
-      margin-bottom: 2rem;
-    }
-
-    .obrigado-icone {
-      font-size: clamp(3.5rem, 10vw, 4.5rem);
-      line-height: 1;
-      margin-bottom: 1.25rem;
-    }
-
-    #obrigado h1 {
-      font-size: clamp(1.7rem, 4.5vw, 2.2rem);
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .obrigado-texto {
-      color: var(--cor-suave);
-      font-size: 1.05rem;
-      margin-bottom: 2rem;
-    }
-
-    .obrigado-voltar {
-      display: inline-block;
-      margin-top: 1.5rem;
-      color: var(--cor-suave);
-      font-size: 0.95rem;
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-
-    .obrigado-voltar:hover {
-      color: var(--cor-marca);
-    }
-
-    @media (max-width: 600px) {
-      .obrigado-card {
-        padding: 2.25rem 1.5rem;
-      }
-
-      .obrigado-card .btn-principal {
-        display: block;
-        width: 100%;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedido recebido — Weblar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="../favicon.svg">
+<style>
+  :root {
+    --navy: #0D1520; --navy-card: #141F30; --gold: #D4A017;
+    --texto: #F1F5F9; --texto-fraco: #9AA5B1; --linha: #2A3646;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif; background: var(--navy); color: var(--texto);
+    margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 40px 20px; text-align: center;
+  }
+  .card {
+    background: var(--navy-card); border: 1px solid rgba(212,160,23,0.2);
+    border-radius: 16px; padding: 48px 40px; max-width: 480px; width: 100%;
+  }
+  .check {
+    width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 24px;
+    background: rgba(111,191,139,0.15); display: flex; align-items: center; justify-content: center;
+  }
+  .check svg { width: 38px; height: 38px; stroke: #6fbf8b; fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  h1 { font-family: 'Playfair Display', serif; font-size: 1.9rem; margin: 0 0 12px; }
+  .texto { color: var(--texto-fraco); font-size: 1rem; line-height: 1.6; margin: 0 0 28px; }
+  .destaque { color: var(--gold); font-weight: 600; }
+  .passos {
+    text-align: left; background: var(--navy); border: 1px solid var(--linha);
+    border-radius: 12px; padding: 20px 24px; margin-bottom: 28px;
+  }
+  .passos h2 { font-size: 0.85rem; color: var(--texto-fraco); text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 14px; }
+  .passo { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; font-size: 0.9rem; }
+  .passo:last-child { margin-bottom: 0; }
+  .passo .n { color: var(--gold); font-weight: 700; flex-shrink: 0; }
+  .botoes { display: flex; gap: 12px; flex-direction: column; }
+  .btn-gold {
+    background: var(--gold); color: var(--navy); padding: 13px; border-radius: 8px;
+    text-decoration: none; font-weight: 600; font-size: 0.95rem;
+  }
+  .btn-gold:hover { opacity: 0.9; }
+  .btn-outline {
+    background: none; color: var(--texto-fraco); padding: 13px; border-radius: 8px;
+    text-decoration: none; font-size: 0.9rem; border: 1px solid var(--linha);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+</style>
 </head>
 <body>
 
-  <section id="obrigado">
-    <div class="obrigado-card">
-      <a href="/" class="logo obrigado-logo">Weblar</a>
+<div class="card">
+  <div class="check">
+    <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+  </div>
 
-      <div class="obrigado-icone" aria-hidden="true">✅</div>
+  <h1>Pedido recebido! 🎉</h1>
+  <p class="texto">
+    Obrigado! Seu orçamento já chegou pra gente e também está salvo no seu painel.
+    <span class="destaque">Respondemos em até 24 horas.</span>
+  </p>
 
-      <h1>Pedido recebido! 🎉</h1>
+  <div class="passos">
+    <h2>Próximos passos</h2>
+    <div class="passo"><span class="n">1.</span><span>Analisamos seu pedido e preparamos uma proposta com valor e prazo.</span></div>
+    <div class="passo"><span class="n">2.</span><span>Você recebe nossa resposta por e-mail — e acompanha o status no seu painel.</span></div>
+    <div class="passo"><span class="n">3.</span><span>Fechado o orçamento, você preenche o briefing e a gente começa seu site.</span></div>
+  </div>
 
-      <p class="obrigado-texto">Obrigado pelo seu interesse na Weblar. Recebi seu pedido e respondo em até 24 horas. Enquanto isso, você já pode preencher o briefing do seu site para adiantar.</p>
-
-      <a href="/briefing/" class="btn-principal">Preencher briefing</a>
-
-      <div>
-        <a href="/" class="obrigado-voltar">← Voltar ao início</a>
-      </div>
-    </div>
-  </section>
+  <div class="botoes">
+    <a href="../painel/" class="btn-gold">Ver meu pedido no painel</a>
+    <a href="../" class="btn-outline">Voltar ao início</a>
+  </div>
+</div>
 
 </body>
 </html>

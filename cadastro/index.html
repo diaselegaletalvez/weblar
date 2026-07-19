@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Criar conta — Weblar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="../favicon.svg">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root {
+    --navy: #0D1520;
+    --navy-card: #141F30;
+    --gold: #D4A017;
+    --texto: #F1F5F9;
+    --texto-fraco: #9AA5B1;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--navy);
+    color: var(--texto);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  .card {
+    background: var(--navy-card);
+    border: 1px solid rgba(212, 160, 23, 0.2);
+    border-radius: 14px;
+    padding: 40px;
+    max-width: 420px;
+    width: 100%;
+  }
+  .logo-topo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 28px;
+    text-decoration: none;
+  }
+  .logo-topo img { width: 32px; height: 32px; }
+  .logo-topo span {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--texto);
+  }
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 28px;
+    color: var(--texto);
+  }
+  label {
+    display: block;
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: var(--texto-fraco);
+  }
+  input[type="text"], input[type="password"], select {
+    width: 100%;
+    padding: 11px 12px;
+    margin-top: 6px;
+    background: var(--navy);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    color: var(--texto);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+  }
+  input:focus, select:focus { outline: none; border-color: var(--gold); }
+  .data-linha { display: flex; gap: 8px; margin-top: 6px; }
+  .data-linha select { margin-top: 0; }
+  .checkbox-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 22px;
+  }
+  .checkbox-line input { margin-top: 3px; accent-color: var(--gold); }
+  .checkbox-line label { margin-top: 0; color: var(--texto-fraco); font-size: 0.85rem; }
+  button {
+    margin-top: 26px;
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  button:hover { opacity: 0.9; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  #msg { margin-top: 16px; font-size: 0.85rem; text-align: center; }
+  .erro { color: #e07856; }
+  .sucesso { color: #6fbf8b; }
+  .login-link { text-align: center; margin-top: 20px; font-size: 0.85rem; color: var(--texto-fraco); }
+  .login-link a { color: var(--gold); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <a href="../" class="logo-topo">
+    <img src="../assets/logo-simbolo.svg" alt="">
+    <span>Weblar</span>
+  </a>
+
+  <h1>Criar sua conta</h1>
+
+  <form id="form-cadastro">
+    <label for="nome">Nome completo</label>
+    <input type="text" id="nome" required>
+
+    <label>Data de nascimento</label>
+    <div class="data-linha">
+      <select id="dia" required></select>
+      <select id="mes" required></select>
+      <select id="ano" required></select>
+    </div>
+
+    <label for="email">E-mail</label>
+    <input type="text" id="email" required>
+
+    <label for="senha">Senha</label>
+    <input type="password" id="senha" minlength="6" required>
+
+    <label for="confirmar">Confirmar senha</label>
+    <input type="password" id="confirmar" minlength="6" required>
+
+    <div class="checkbox-line">
+      <input type="checkbox" id="termos" required>
+      <label for="termos">Li e aceito os <a href="../termos/" style="color: var(--gold);">termos de uso</a> e a <a href="../privacidade/" style="color: var(--gold);">política de privacidade</a></label>
+    </div>
+
+    <button type="submit" id="btn-enviar">Criar conta</button>
+    <div id="msg"></div>
+  </form>
+
+  <div class="login-link">Já tem conta? <a href="../login/">Entrar</a></div>
+</div>
+
+<script>
+const clienteSupabase = window.supabase.createClient(
+  'https://unsvccbzrrgnvzvdwwrz.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVuc3ZjY2J6cnJnbnZ6dmR3d3J6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0MzE0OTUsImV4cCI6MjEwMDAwNzQ5NX0.LI121gkIHkiplDTcolv6e6is6LxN0I1Ebmil5tJKRxY'
+);
+
+// Preenche os selects de data
+const meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const selDia = document.getElementById('dia');
+const selMes = document.getElementById('mes');
+const selAno = document.getElementById('ano');
+
+selDia.innerHTML = '<option value="">Dia</option>';
+for (let d = 1; d <= 31; d++) selDia.innerHTML += `<option value="${d}">${d}</option>`;
+
+selMes.innerHTML = '<option value="">Mês</option>';
+meses.forEach((m, i) => selMes.innerHTML += `<option value="${i+1}">${m}</option>`);
+
+selAno.innerHTML = '<option value="">Ano</option>';
+const anoAtual = new Date().getFullYear();
+for (let a = anoAtual - 13; a >= anoAtual - 100; a--) selAno.innerHTML += `<option value="${a}">${a}</option>`;
+
+const form = document.getElementById('form-cadastro');
+const msg = document.getElementById('msg');
+const btn = document.getElementById('btn-enviar');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  msg.textContent = '';
+  msg.className = '';
+
+  const nome = document.getElementById('nome').value.trim();
+  const dia = selDia.value, mes = selMes.value, ano = selAno.value;
+  const email = document.getElementById('email').value.trim();
+  const senha = document.getElementById('senha').value;
+  const confirmar = document.getElementById('confirmar').value;
+
+  if (!dia || !mes || !ano) {
+    msg.textContent = 'Preencha a data de nascimento completa.';
+    msg.className = 'erro';
+    return;
+  }
+  if (senha !== confirmar) {
+    msg.textContent = 'As senhas não coincidem.';
+    msg.className = 'erro';
+    return;
+  }
+
+  const nascimento = `${ano}-${String(mes).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
+
+  btn.disabled = true;
+  btn.textContent = 'Criando conta...';
+
+  const { data, error } = await clienteSupabase.auth.signUp({
+    email: email,
+    password: senha,
+    options: { data: { full_name: nome, birth_date: nascimento } }
+  });
+
+  if (error) {
+    btn.disabled = false;
+    btn.textContent = 'Criar conta';
+    msg.textContent = 'Erro: ' + error.message;
+    msg.className = 'erro';
+    return;
+  }
+
+  // Se já veio com sessão (confirmação de e-mail desligada), loga direto
+  if (data.session) {
+    window.location.href = '../completar-perfil/';
+    return;
+  }
+
+  // Se não veio sessão, tenta logar na hora
+  const { error: erroLogin } = await clienteSupabase.auth.signInWithPassword({ email, password: senha });
+  if (!erroLogin) {
+    window.location.href = '../completar-perfil/';
+  } else {
+    msg.textContent = 'Conta criada! Confirme seu e-mail antes de entrar.';
+    msg.className = 'sucesso';
+    btn.disabled = false;
+    btn.textContent = 'Criar conta';
+  }
+});
+</script>
+
+</body>
+</html>

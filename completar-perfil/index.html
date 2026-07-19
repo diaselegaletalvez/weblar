@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Completar perfil — Weblar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="../favicon.svg">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root {
+    --navy: #0D1520; --navy-card: #141F30; --gold: #D4A017;
+    --texto: #F1F5F9; --texto-fraco: #9AA5B1;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif; background: var(--navy); color: var(--texto);
+    margin: 0; min-height: 100vh; display: flex; align-items: center;
+    justify-content: center; padding: 40px 20px;
+  }
+  .card {
+    background: var(--navy-card); border: 1px solid rgba(212,160,23,0.2);
+    border-radius: 14px; padding: 40px; max-width: 440px; width: 100%;
+  }
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif; font-size: 1.5rem; font-weight: 700;
+    text-align: center; margin: 0 0 6px; color: var(--texto);
+  }
+  .sub { text-align: center; color: var(--texto-fraco); font-size: 0.9rem; margin-bottom: 28px; }
+  .foto-area { display: flex; flex-direction: column; align-items: center; margin-bottom: 8px; }
+  .foto-preview {
+    width: 110px; height: 110px; border-radius: 50%; object-fit: cover;
+    background: var(--navy); border: 2px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--texto-fraco); font-size: 2.4rem; overflow: hidden;
+  }
+  .foto-btn {
+    margin-top: 12px; color: var(--gold); font-size: 0.85rem; cursor: pointer;
+    background: none; border: none; text-decoration: underline;
+  }
+  input[type="file"] { display: none; }
+  label { display: block; margin-top: 16px; font-size: 0.85rem; color: var(--texto-fraco); }
+  input[type="text"] {
+    width: 100%; padding: 11px 12px; margin-top: 6px; background: var(--navy);
+    border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: var(--texto);
+    font-family: 'Inter', sans-serif; font-size: 0.95rem;
+  }
+  input:focus { outline: none; border-color: var(--gold); }
+  button.enviar {
+    margin-top: 26px; width: 100%; padding: 13px; border: none; border-radius: 8px;
+    background: var(--gold); color: var(--navy); font-family: 'Inter', sans-serif;
+    font-weight: 600; font-size: 0.95rem; cursor: pointer;
+  }
+  button.enviar:hover { opacity: 0.9; }
+  button.enviar:disabled { opacity: 0.5; cursor: not-allowed; }
+  .pular { text-align: center; margin-top: 16px; }
+  .pular a { color: var(--texto-fraco); font-size: 0.85rem; text-decoration: none; }
+  #msg { margin-top: 14px; font-size: 0.85rem; text-align: center; }
+  .erro { color: #e07856; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Quase lá!</h1>
+  <p class="sub">Complete seu perfil pra gente te conhecer melhor.</p>
+
+  <form id="form-perfil">
+    <div class="foto-area">
+      <div class="foto-preview" id="preview">👤</div>
+      <button type="button" class="foto-btn" id="btn-foto">Escolher foto de perfil</button>
+      <input type="file" id="foto" accept="image/*">
+    </div>
+
+    <label for="business">Nome do seu negócio (opcional)</label>
+    <input type="text" id="business" placeholder="Ex.: Padaria do João">
+
+    <label for="phone">WhatsApp (opcional)</label>
+    <input type="text" id="phone" placeholder="(00) 00000-0000">
+
+    <button type="submit" class="enviar" id="btn-enviar">Salvar e continuar</button>
+    <div id="msg"></div>
+  </form>
+
+  <div class="pular"><a href="#" id="pular">Pular por enquanto</a></div>
+</div>
+
+<script>
+const cli = window.supabase.createClient(
+  'https://unsvccbzrrgnvzvdwwrz.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVuc3ZjY2J6cnJnbnZ6dmR3d3J6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0MzE0OTUsImV4cCI6MjEwMDAwNzQ5NX0.LI121gkIHkiplDTcolv6e6is6LxN0I1Ebmil5tJKRxY'
+);
+
+let usuario = null;
+let arquivoFoto = null;
+
+const preview = document.getElementById('preview');
+const inputFoto = document.getElementById('foto');
+const msg = document.getElementById('msg');
+const btn = document.getElementById('btn-enviar');
+
+// Exige login
+(async () => {
+  const { data: { session } } = await cli.auth.getSession();
+  if (!session) { window.location.href = '../login/'; return; }
+  usuario = session.user;
+
+  // Se já completou, vai direto pro painel
+  const { data: perfil } = await cli.from('profiles').select('profile_completed').eq('id', usuario.id).single();
+  if (perfil && perfil.profile_completed) { window.location.href = '../painel/'; }
+})();
+
+document.getElementById('btn-foto').addEventListener('click', () => inputFoto.click());
+
+inputFoto.addEventListener('change', (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+  arquivoFoto = f;
+  const url = URL.createObjectURL(f);
+  preview.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;">`;
+});
+
+document.getElementById('form-perfil').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  msg.textContent = ''; msg.className = '';
+  btn.disabled = true; btn.textContent = 'Salvando...';
+
+  let avatarUrl = null;
+
+  // 1) sobe a foto, se escolhida
+  if (arquivoFoto) {
+    const ext = arquivoFoto.name.split('.').pop();
+    const caminho = `${usuario.id}/avatar.${ext}`;
+    const { error: erroUp } = await cli.storage.from('avatars').upload(caminho, arquivoFoto, { upsert: true });
+    if (erroUp) {
+      msg.textContent = 'Erro ao subir a foto: ' + erroUp.message;
+      msg.className = 'erro';
+      btn.disabled = false; btn.textContent = 'Salvar e continuar';
+      return;
+    }
+    const { data: pub } = cli.storage.from('avatars').getPublicUrl(caminho);
+    avatarUrl = pub.publicUrl;
+  }
+
+  // 2) salva os dados do perfil
+  const { error } = await cli.from('profiles').update({
+    business_name: document.getElementById('business').value.trim() || null,
+    phone: document.getElementById('phone').value.trim() || null,
+    avatar_url: avatarUrl,
+    profile_completed: true
+  }).eq('id', usuario.id);
+
+  if (error) {
+    msg.textContent = 'Erro ao salvar: ' + error.message;
+    msg.className = 'erro';
+    btn.disabled = false; btn.textContent = 'Salvar e continuar';
+    return;
+  }
+
+  window.location.href = '../painel/';
+});
+
+// Pular: marca como completo (sem dados) e vai pro painel
+document.getElementById('pular').addEventListener('click', async (e) => {
+  e.preventDefault();
+  if (usuario) {
+    await cli.from('profiles').update({ profile_completed: true }).eq('id', usuario.id);
+  }
+  window.location.href = '../painel/';
+});
+</script>
+
+</body>
+</html>

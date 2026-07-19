@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu painel — Weblar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="../favicon.svg">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root {
+    --navy: #0D1520; --navy-card: #141F30; --navy-side: #0A111A; --gold: #D4A017;
+    --texto: #F1F5F9; --texto-fraco: #9AA5B1; --linha: #2A3646; --vermelho: #e05656;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: var(--navy); color: var(--texto); margin: 0; }
+  .layout { display: flex; min-height: 100vh; }
+  svg.ic { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+  /* Sidebar */
+  .sidebar {
+    width: 250px; background: var(--navy-side); border-right: 1px solid var(--linha);
+    display: flex; flex-direction: column; padding: 20px 14px; position: fixed; top: 0; bottom: 0; left: 0;
+  }
+  .side-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; padding: 6px 10px 20px; }
+  .side-logo img { width: 28px; height: 28px; }
+  .side-logo span { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.25rem; color: var(--texto); }
+  .side-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+  .nav-item {
+    display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 9px;
+    color: var(--texto-fraco); text-decoration: none; font-size: 0.92rem; cursor: pointer;
+    border: none; background: none; width: 100%; text-align: left; font-family: inherit;
+  }
+  .nav-item:hover { background: rgba(255,255,255,0.05); color: var(--texto); }
+  .nav-item.ativo { background: rgba(212,160,23,0.14); color: var(--gold); }
+  .nav-item.futuro { opacity: 0.5; }
+  .nav-tag { font-size: 0.62rem; background: var(--linha); color: var(--texto-fraco); padding: 2px 7px; border-radius: 10px; margin-left: auto; }
+
+  .side-conta {
+    display: flex; align-items: center; gap: 10px; padding: 10px; margin-top: 10px;
+    border-top: 1px solid var(--linha); padding-top: 16px; cursor: pointer; border-radius: 9px; position: relative;
+  }
+  .side-conta:hover { background: rgba(255,255,255,0.04); }
+  .conta-avatar {
+    width: 36px; height: 36px; border-radius: 8px; object-fit: cover; overflow: hidden;
+    background: var(--gold); color: var(--navy); display: flex; align-items: center;
+    justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0;
+  }
+  .conta-info { overflow: hidden; }
+  .conta-nome { font-size: 0.85rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .conta-email { font-size: 0.72rem; color: var(--texto-fraco); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  .conta-menu {
+    display: none; position: absolute; bottom: 60px; left: 10px; right: 10px;
+    background: var(--navy-card); border: 1px solid var(--linha); border-radius: 10px;
+    padding: 6px; z-index: 10; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .conta-menu.aberto { display: block; }
+  .menu-link {
+    display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 7px;
+    color: var(--texto); text-decoration: none; font-size: 0.88rem; cursor: pointer;
+    border: none; background: none; width: 100%; text-align: left; font-family: inherit;
+  }
+  .menu-link:hover { background: rgba(255,255,255,0.06); }
+  .menu-link.sair { color: var(--vermelho); }
+
+  /* Conteúdo */
+  .conteudo { margin-left: 250px; flex: 1; padding: 48px 56px 80px; max-width: 1100px; }
+  .saudacao { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 0 0 6px; }
+  .saudacao-sub { color: var(--texto-fraco); margin: 0 0 36px; font-size: 1.05rem; }
+
+  /* Cards de resumo */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 12px; }
+  .card {
+    background: var(--navy-card); border: 1px solid var(--linha); border-radius: 14px; padding: 22px;
+  }
+  .card-topo { display: flex; align-items: center; gap: 10px; color: var(--texto-fraco); font-size: 0.85rem; margin-bottom: 12px; }
+  .card-num { font-size: 2rem; font-weight: 700; font-family: 'Playfair Display', serif; }
+  .card-num.gold { color: var(--gold); }
+
+  .secao-titulo { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--gold); margin: 40px 0 16px; }
+  .lista { display: flex; flex-direction: column; gap: 12px; }
+  .item {
+    background: var(--navy-card); border: 1px solid var(--linha); border-radius: 12px;
+    padding: 18px 20px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .item-info h3 { margin: 0 0 4px; font-size: 1rem; }
+  .item-info p { margin: 0; color: var(--texto-fraco); font-size: 0.85rem; }
+  .status { font-size: 0.78rem; padding: 5px 12px; border-radius: 20px; font-weight: 600;
+    background: rgba(212,160,23,0.15); color: var(--gold); white-space: nowrap; }
+  .status.pronto { background: rgba(111,191,139,0.15); color: #6fbf8b; }
+  .vazio { background: var(--navy-card); border: 1px dashed var(--linha); border-radius: 12px;
+    padding: 28px; text-align: center; color: var(--texto-fraco); font-size: 0.9rem; }
+  .vazio a { color: var(--gold); text-decoration: none; font-weight: 600; }
+  .site-link { color: var(--gold); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+  .secao { display: none; }
+  .secao.ativa { display: block; }
+
+  @media (max-width: 820px) {
+    .sidebar { width: 64px; padding: 16px 8px; }
+    .side-logo span, .conta-info, .nav-item span:not(.nav-tag), .nav-tag { display: none; }
+    .nav-item { justify-content: center; }
+    .conteudo { margin-left: 64px; padding: 32px 20px; }
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <aside class="sidebar">
+    <a href="../" class="side-logo">
+      <img src="../assets/logo-simbolo.svg" alt=""><span>Weblar</span>
+    </a>
+
+    <nav class="side-nav">
+      <button class="nav-item ativo" data-secao="inicio">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg><span>Painel</span></button>
+      <button class="nav-item" data-secao="pedidos">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.7l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.7l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.3 7L12 12l8.7-5M12 22V12"/></svg><span>Meus pedidos</span></button>
+      <a href="../pedir-orcamento/" class="nav-item">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg><span>Pedir orçamento</span></a>
+      <button class="nav-item" data-secao="sites">
+        <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18"/></svg><span>Meus sites</span></button>
+      <div class="nav-item futuro">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg><span>Mijko</span><span class="nav-tag">em breve</span></div>
+      <button class="nav-item" data-secao="config">
+        <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-1.8-.3 1.6 1.6 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.6 1.6 0 00-1-1.5 1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.6 1.6 0 00.3-1.8 1.6 1.6 0 00-1.5-1H3a2 2 0 110-4h.1a1.6 1.6 0 001.5-1 1.6 1.6 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.6 1.6 0 001.8.3H9a1.6 1.6 0 001-1.5V3a2 2 0 114 0v.1a1.6 1.6 0 001 1.5 1.6 1.6 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.8V9a1.6 1.6 0 001.5 1H21a2 2 0 110 4h-.1a1.6 1.6 0 00-1.5 1z"/></svg><span>Configurações</span></button>
+    </nav>
+
+    <div class="side-conta" id="side-conta">
+      <div class="conta-menu" id="conta-menu">
+        <button class="menu-link" data-secao="inicio">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg> Ir ao painel</button>
+        <button class="menu-link" data-secao="pedidos">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.7l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.7l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg> Meus pedidos</button>
+        <button class="menu-link" data-secao="config">
+          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8 2 2 0 11-2.8 2.8 1.6 1.6 0 00-2.8 1.2 2 2 0 11-4 0 1.6 1.6 0 00-2.8-1.2 2 2 0 11-2.8-2.8A1.6 1.6 0 004.6 15a2 2 0 110-4 1.6 1.6 0 001.2-2.8 2 2 0 112.8-2.8A1.6 1.6 0 0011.4 4.6a2 2 0 114 0 1.6 1.6 0 002.8 1.2 2 2 0 112.8 2.8A1.6 1.6 0 0019.4 11a2 2 0 110 4z"/></svg> Configurações</button>
+        <button class="menu-link sair" id="btn-sair">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg> Sair</button>
+      </div>
+      <div class="conta-avatar" id="conta-avatar">G</div>
+      <div class="conta-info">
+        <div class="conta-nome" id="conta-nome">Carregando</div>
+        <div class="conta-email" id="conta-email"></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="conteudo">
+    <h1 class="saudacao" id="saudacao">Olá!</h1>
+    <p class="saudacao-sub">Bem-vindo ao seu painel Weblar. O que vamos fazer hoje?</p>
+
+    <div class="secao ativa" id="sec-inicio">
+      <div class="cards">
+        <div class="card">
+          <div class="card-topo"><svg class="ic" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.7l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.7l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg> Pedidos</div>
+          <div class="card-num gold" id="num-pedidos">0</div>
+        </div>
+        <div class="card">
+          <div class="card-topo"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/></svg> Sites no ar</div>
+          <div class="card-num" id="num-sites">0</div>
+        </div>
+        <div class="card">
+          <div class="card-topo"><svg class="ic" viewBox="0 0 24 24"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg> Em andamento</div>
+          <div class="card-num" id="num-andamento">0</div>
+        </div>
+      </div>
+
+      <h2 class="secao-titulo">Meus pedidos</h2>
+      <div class="lista" id="lista-pedidos"><div class="vazio">Carregando...</div></div>
+      <h2 class="secao-titulo">Meus sites</h2>
+      <div class="lista" id="lista-sites"><div class="vazio">Carregando...</div></div>
+    </div>
+
+    <div class="secao" id="sec-pedidos">
+      <h2 class="secao-titulo">Meus pedidos</h2>
+      <div class="lista" id="lista-pedidos2"><div class="vazio">Carregando...</div></div>
+    </div>
+
+    <div class="secao" id="sec-sites">
+      <h2 class="secao-titulo">Meus sites</h2>
+      <div class="lista" id="lista-sites2"><div class="vazio">Carregando...</div></div>
+    </div>
+
+    <div class="secao" id="sec-config">
+      <h2 class="secao-titulo">Configurações</h2>
+      <div class="vazio">Em breve você poderá editar seu perfil, foto e dados por aqui.</div>
+    </div>
+  </main>
+</div>
+
+<script>
+const cli = window.supabase.createClient(
+  'https://unsvccbzrrgnvzvdwwrz.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVuc3ZjY2J6cnJnbnZ6dmR3d3J6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0MzE0OTUsImV4cCI6MjEwMDAwNzQ5NX0.LI121gkIHkiplDTcolv6e6is6LxN0I1Ebmil5tJKRxY'
+);
+
+function itemPedido(p){return `<div class="item"><div class="item-info"><h3>${p.title}</h3><p>Pedido em ${new Date(p.created_at).toLocaleDateString('pt-BR')}</p></div><span class="status">${p.status}</span></div>`;}
+function itemSite(s){return `<div class="item"><div class="item-info"><h3>${s.url}</h3><p>Status: ${s.status}</p></div><a href="${s.url}" target="_blank" class="site-link">Abrir →</a></div>`;}
+
+function irPara(secao){
+  document.querySelectorAll('.secao').forEach(s => s.classList.remove('ativa'));
+  (document.getElementById('sec-'+secao)||document.getElementById('sec-inicio')).classList.add('ativa');
+  document.querySelectorAll('.nav-item[data-secao]').forEach(n => n.classList.toggle('ativo', n.dataset.secao===secao));
+  document.getElementById('conta-menu').classList.remove('aberto');
+}
+document.querySelectorAll('[data-secao]').forEach(el => el.addEventListener('click', () => irPara(el.dataset.secao)));
+
+document.getElementById('side-conta').addEventListener('click', (e) => {
+  if (e.target.closest('.conta-menu')) return;
+  document.getElementById('conta-menu').classList.toggle('aberto');
+});
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('#side-conta')) document.getElementById('conta-menu').classList.remove('aberto');
+});
+document.getElementById('btn-sair').addEventListener('click', async () => {
+  await cli.auth.signOut(); window.location.href = '../';
+});
+
+(async () => {
+  const { data: { session } } = await cli.auth.getSession();
+  if (!session) { window.location.href = '../login/'; return; }
+  const user = session.user;
+
+  const { data: perfil } = await cli.from('profiles').select('*').eq('id', user.id).single();
+  const nomeCompleto = perfil?.full_name || user.user_metadata?.full_name || 'você';
+  const primeiro = nomeCompleto.split(' ')[0];
+  document.getElementById('saudacao').textContent = `Olá, ${primeiro}!`;
+  document.getElementById('conta-nome').textContent = nomeCompleto;
+  document.getElementById('conta-email').textContent = user.email;
+
+  const av = document.getElementById('conta-avatar');
+  if (perfil?.avatar_url) av.innerHTML = `<img src="${perfil.avatar_url}" style="width:100%;height:100%;object-fit:cover;">`;
+  else av.textContent = primeiro.charAt(0).toUpperCase();
+
+  const { data: pedidos } = await cli.from('orders').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
+  const vazioP = `<div class="vazio">Você ainda não tem pedidos. <a href="../pedir-orcamento/">Pedir orçamento</a></div>`;
+  const htmlP = (pedidos && pedidos.length) ? pedidos.map(itemPedido).join('') : vazioP;
+  document.getElementById('lista-pedidos').innerHTML = htmlP;
+  document.getElementById('lista-pedidos2').innerHTML = htmlP;
+  document.getElementById('num-pedidos').textContent = pedidos ? pedidos.length : 0;
+  document.getElementById('num-andamento').textContent = pedidos ? pedidos.filter(p => p.status !== 'entregue').length : 0;
+
+  const { data: sites } = await cli.from('sites').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
+  const vazioS = `<div class="vazio">Nenhum site entregue ainda. Assim que ficar pronto, aparece aqui.</div>`;
+  const htmlS = (sites && sites.length) ? sites.map(itemSite).join('') : vazioS;
+  document.getElementById('lista-sites').innerHTML = htmlS;
+  document.getElementById('lista-sites2').innerHTML = htmlS;
+  document.getElementById('num-sites').textContent = sites ? sites.filter(s => s.status === 'no ar').length : 0;
+})();
+</script>
+
+</body>
+</html>

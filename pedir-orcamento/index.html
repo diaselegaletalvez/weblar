@@ -20,8 +20,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -29,8 +29,8 @@
 <body>
   <header id="topo">
     <div class="container topo-conteudo">
-      <a href="index.html" class="logo">
-        <img src="assets/logo-simbolo.svg" alt="" class="logo-simbolo">
+      <a href="../" class="logo">
+        <img src="../assets/logo-simbolo.svg" alt="" class="logo-simbolo">
         <span class="logo-nome">Weblar</span>
       </a>
       <nav class="menu">
@@ -38,7 +38,8 @@
         <a href="index.html#pacotes" class="menu-link">Pacotes</a>
         <a href="index.html#como-funciona" class="menu-link">Como funciona</a>
         <a href="index.html#faq" class="menu-link">FAQ</a>
-        <a href="pedir-orcamento.html" class="btn-principal btn-menu">Pedir orçamento</a>
+        <a href="../pedir-orcamento/" class="btn-principal btn-menu">Pedir orçamento</a>
+        <div id="auth-area"></div>
       </nav>
     </div>
   </header>
@@ -131,6 +132,60 @@
     gtag('js', new Date());
     gtag('config', 'AW-18281250397');
   </script>
-<script src="script.js"></script>
+<script src="../script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/auth.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(async () => {
+  const cliOrc = window.supabase.createClient(
+    'https://unsvccbzrrgnvzvdwwrz.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVuc3ZjY2J6cnJnbnZ6dmR3d3J6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0MzE0OTUsImV4cCI6MjEwMDAwNzQ5NX0.LI121gkIHkiplDTcolv6e6is6LxN0I1Ebmil5tJKRxY'
+  );
+
+  // 1) Exige login: sem sessão, manda pro login e volta pra cá depois
+  const { data: { session } } = await cliOrc.auth.getSession();
+  if (!session) {
+    window.location.href = '../login/?redirect=pedir-orcamento.html';
+    return;
+  }
+  const user = session.user;
+
+  // 2) Pré-preenche o e-mail com o da conta e trava o campo
+  const campoEmail = document.getElementById('email');
+  if (campoEmail) {
+    campoEmail.value = user.email;
+    campoEmail.readOnly = true;
+    campoEmail.style.opacity = '0.7';
+  }
+  // Pré-preenche o nome se tiver no perfil
+  const { data: perfil } = await cliOrc.from('profiles').select('full_name').eq('id', user.id).single();
+  const campoNome = document.getElementById('nome');
+  if (campoNome && perfil && perfil.full_name) campoNome.value = perfil.full_name;
+
+  // 3) Ao enviar: grava o pedido no Supabase (aparece no painel) ANTES do Formspree
+  const form = document.querySelector('.form-orcamento');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      // grava no banco; se falhar, deixa o Formspree seguir mesmo assim
+      try {
+        const negocio = document.getElementById('negocio')?.value.trim();
+        const plano = document.getElementById('plano')?.value;
+        const titulo = negocio ? ('Site para ' + negocio) : 'Novo pedido de orçamento';
+        await cliOrc.from('orders').insert({
+          user_id: user.id,
+          title: titulo,
+          status: 'recebido'
+        });
+      } catch (err) {
+        console.error('Falha ao gravar pedido no painel:', err);
+      }
+      // não damos preventDefault: o Formspree continua enviando pro seu Gmail normalmente
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
