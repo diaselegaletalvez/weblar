@@ -141,7 +141,7 @@ const btn = document.getElementById('btn-entrar');
 
 // Volta pra página de onde veio (ex: pedir-orcamento), se houver ?redirect=
 const params = new URLSearchParams(window.location.search);
-const redirect = params.get('redirect') || 'painel.html';
+const redirect = params.get('redirect') || '../painel/';
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();

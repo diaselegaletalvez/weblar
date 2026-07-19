@@ -34,10 +34,10 @@
         <span class="logo-nome">Weblar</span>
       </a>
       <nav class="menu">
-        <a href="index.html#portfolio" class="menu-link">Portfólio</a>
-        <a href="index.html#pacotes" class="menu-link">Pacotes</a>
-        <a href="index.html#como-funciona" class="menu-link">Como funciona</a>
-        <a href="index.html#faq" class="menu-link">FAQ</a>
+        <a href="../#portfolio" class="menu-link">Portfólio</a>
+        <a href="../#pacotes" class="menu-link">Pacotes</a>
+        <a href="../#como-funciona" class="menu-link">Como funciona</a>
+        <a href="../#faq" class="menu-link">FAQ</a>
         <a href="../pedir-orcamento/" class="btn-principal btn-menu">Pedir orçamento</a>
         <div id="auth-area"></div>
       </nav>
@@ -147,7 +147,7 @@
   // 1) Exige login: sem sessão, manda pro login e volta pra cá depois
   const { data: { session } } = await cliOrc.auth.getSession();
   if (!session) {
-    window.location.href = '../login/?redirect=pedir-orcamento.html';
+    window.location.href = '../login/?redirect=/pedir-orcamento/';
     return;
   }
   const user = session.user;
