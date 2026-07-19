@@ -1299,3 +1299,13 @@ textarea.campo { min-height: 120px; resize: vertical; }
   font-size: 1.5rem;
   color: #F1F5F9;
 }
+
+/* ===== Portfólio — fotos em preto e branco ===== */
+.card-portfolio-img {
+  filter: grayscale(1) contrast(1.05);
+}
+
+/* ===== Portfólio — fotos em preto e branco ===== */
+.card-portfolio-img {
+  filter: grayscale(1) contrast(1.05);
+}
