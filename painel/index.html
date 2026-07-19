@@ -116,6 +116,10 @@
   .zp-info h4 { margin: 0 0 4px; font-size: 0.92rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .zp-info p { margin: 0; font-size: 0.82rem; color: var(--texto-fraco); }
   .zp-card .btn-perigo { flex-shrink: 0; }
+  .btn-perigo-ativo { border-color: #e05656; color: #F1F5F9; background: rgba(224,86,86,0.12); cursor: pointer; }
+  .btn-perigo-ativo:hover { background: #e05656; color: #F1F5F9; }
+  .btn-perigo-ativo:disabled { cursor: not-allowed; opacity: 0.6; }
+
 
   .zona-perigo { grid-column: 1 / -1; background: var(--navy-card); border: 1px dashed var(--linha); border-radius: 14px; padding: 26px; margin-top: 8px; opacity: 0.65; }
   .zona-perigo h3 { margin: 0 0 4px; font-size: 1.05rem; color: var(--texto-fraco); display: flex; align-items: center; gap: 10px; }
@@ -290,8 +294,8 @@
         </div>
 
         <div class="zp-card zp-card-critico">
-          <div class="zp-info"><h4>Excluir minha conta <span class="tag-breve">em breve</span></h4><p>Apaga permanentemente sua conta e todos os dados. Não dá pra desfazer.</p></div>
-          <button class="btn-perigo" id="btnExcluirConta" onclick="pedirExclusaoConta()">Excluir conta</button>
+          <div class="zp-info"><h4>Excluir minha conta</h4><p>Apaga permanentemente sua conta e todos os dados. Não dá pra desfazer.</p></div>
+          <button class="btn-perigo btn-perigo-ativo" id="btnExcluirConta" onclick="pedirExclusaoConta()">Excluir conta</button>
         </div>
       </div>
 
