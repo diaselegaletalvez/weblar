@@ -105,6 +105,12 @@
   .config-msg { font-size: 0.85rem; margin-top: 12px; }
   .config-msg.ok { color: #6fbf8b; }
   .config-msg.erro { color: var(--vermelho); }
+  .zona-perigo { grid-column: 1 / -1; background: var(--navy-card); border: 1px dashed var(--linha); border-radius: 14px; padding: 26px; margin-top: 8px; opacity: 0.65; }
+  .zona-perigo h3 { margin: 0 0 4px; font-size: 1.05rem; color: var(--texto-fraco); display: flex; align-items: center; gap: 10px; }
+  .zona-perigo .tag-breve { font-size: 0.62rem; background: var(--linha); color: var(--texto-fraco); padding: 3px 9px; border-radius: 10px; font-weight: 600; }
+  .zona-perigo .desc { color: var(--texto-fraco); font-size: 0.85rem; margin: 0 0 18px; }
+  .btn-perigo { background: none; border: 1px solid var(--linha); color: var(--texto-fraco); padding: 11px 22px; border-radius: 8px; font-family: inherit; font-weight: 600; font-size: 0.9rem; cursor: not-allowed; }
+
   #sec-config .config-bloco { max-width: none; margin-bottom: 0; }
   .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
   @media (max-width: 720px) { .config-grid { grid-template-columns: 1fr; } }
@@ -246,7 +252,13 @@
         <button class="btn-sec" id="cfg-trocar-senha">Redefinir minha senha</button>
         <div class="config-msg" id="cfg-msg-senha"></div>
       </div>
+
+      <div class="config-bloco zona-perigo">
+        <h3>Excluir conta <span class="tag-breve">em breve</span></h3>
+        <p class="desc">Em breve você poderá excluir sua conta e todos os seus dados por aqui, de forma permanente.</p>
+        <button class="btn-perigo" disabled>Excluir minha conta</button>
       </div>
+
     </div>
   </main>
 </div>
