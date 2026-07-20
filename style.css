@@ -1411,3 +1411,10 @@ textarea.campo { min-height: 120px; resize: vertical; }
 .auth-mitem.sair { color: #e05656; }
 .auth-mitem.sair:hover { background: rgba(224,86,86,0.1); }
 .auth-menu .mic { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+
+/* ===== Botoes de demos abaixo do portfolio ===== */
+.portfolio-demos-extra { text-align: center; margin-top: 48px; }
+.portfolio-demos-texto { color: #9AA5B1; font-size: 1.05rem; margin-bottom: 20px; }
+.portfolio-demos-botoes { display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.portfolio-demos-botoes .hero-link-secundario { white-space: nowrap; }
