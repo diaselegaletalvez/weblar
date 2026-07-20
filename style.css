@@ -1418,3 +1418,25 @@ textarea.campo { min-height: 120px; resize: vertical; }
 .portfolio-demos-texto { color: #9AA5B1; font-size: 1.05rem; margin-bottom: 20px; }
 .portfolio-demos-botoes { display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; }
 .portfolio-demos-botoes .hero-link-secundario { white-space: nowrap; }
+
+
+/* ===== Layout interno do Rodapé ===== */
+.rodape-container { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+.rodape-grade { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: 2.5rem; padding-bottom: 2.5rem; }
+.rodape-marca { max-width: 300px; }
+.rodape-logo { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem; }
+.rodape-logo-mark { width: 34px; height: 34px; border-radius: 8px; background: var(--cor-marca); color: var(--cor-ancora); display: grid; place-items: center; font-weight: 800; font-size: 1.2rem; font-family: 'Playfair Display', serif; }
+.rodape-logo-nome { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; color: #F1F5F9; }
+.rodape-tagline { color: #8A97A6; font-size: 0.9rem; line-height: 1.6; }
+.rodape-titulo { color: var(--cor-marca); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+.rodape-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+.rodape-links a { font-size: 0.92rem; }
+.rodape-base { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.6rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.8rem; font-size: 0.85rem; color: #8A97A6; }
+@media (max-width: 820px) {
+  .rodape-grade { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .rodape-marca { grid-column: 1 / -1; max-width: none; }
+}
+@media (max-width: 480px) {
+  .rodape-grade { grid-template-columns: 1fr; }
+  .rodape-base { flex-direction: column; gap: 0.4rem; }
+}
